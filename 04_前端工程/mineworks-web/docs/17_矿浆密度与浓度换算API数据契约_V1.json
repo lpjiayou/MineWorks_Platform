@@ -1,0 +1,104 @@
+{
+  "document": "矿浆密度与浓度换算API数据契约",
+  "version": "1.0.0",
+  "endpoint": {
+    "method": "POST",
+    "path": "/api/v1/tools/slurry-density-conversion/calculate"
+  },
+  "modes": {
+    "from_mass_concentration": "已知固体质量浓度，计算矿浆密度和体积浓度",
+    "from_slurry_density": "已知矿浆密度，反算质量浓度和体积浓度",
+    "from_volume_concentration": "已知固体体积浓度，计算矿浆密度和质量浓度"
+  },
+  "requestExample": {
+    "tool_id": "slurry-density-conversion",
+    "formula_version": "1.0.0",
+    "mode": "from_mass_concentration",
+    "inputs": {
+      "solids_density": {
+        "value": 2.7,
+        "unit": "t/m3"
+      },
+      "liquid_density": {
+        "value": 1.0,
+        "unit": "t/m3"
+      },
+      "known_value": {
+        "value": 42,
+        "unit": "%"
+      }
+    }
+  },
+  "responseExample": {
+    "request_id": "req_example_001",
+    "tool_id": "slurry-density-conversion",
+    "formula_version": "1.0.0",
+    "computed_at": "2026-07-14T08:26:08Z",
+    "validity": "VALID",
+    "summary": "矿浆密度 1.360 t/m³，固体质量浓度 42.00%，固体体积浓度 21.15%。",
+    "normalized_inputs": {
+      "mode": "from_mass_concentration",
+      "solids_density_t_m3": 2.7,
+      "liquid_density_t_m3": 1.0,
+      "known_value": 0.42,
+      "known_quantity": "mass_fraction"
+    },
+    "results": {
+      "slurry_density": {
+        "value": 1.359516616,
+        "unit": "t/m³",
+        "precision": 3
+      },
+      "solids_mass_fraction": {
+        "value": 42.0,
+        "unit": "%",
+        "precision": 2
+      },
+      "solids_volume_fraction": {
+        "value": 21.148036254,
+        "unit": "%",
+        "precision": 2
+      },
+      "liquid_mass_fraction": {
+        "value": 58.0,
+        "unit": "%",
+        "precision": 2
+      },
+      "liquid_volume_fraction": {
+        "value": 78.851963746,
+        "unit": "%",
+        "precision": 2
+      }
+    },
+    "steps": "CalculationStep[]",
+    "warnings": "EngineeringWarning[]",
+    "assumptions": "string[]"
+  },
+  "units": {
+    "density": [
+      "t/m3",
+      "kg/L",
+      "kg/m3"
+    ],
+    "concentration": [
+      "%",
+      "fraction"
+    ]
+  },
+  "validity": [
+    "VALID",
+    "CAUTION",
+    "INVALID"
+  ],
+  "errorCodes": [
+    "VALIDATION_ERROR",
+    "SERVICE_UNAVAILABLE",
+    "REQUEST_ABORTED"
+  ],
+  "engineeringBoundary": [
+    "固液两相",
+    "体积可加",
+    "不单独计入气泡和第三相",
+    "密度应对应相同工况"
+  ]
+}

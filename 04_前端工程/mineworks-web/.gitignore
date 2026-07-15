@@ -1,0 +1,54 @@
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+
+# Next.js
+/.next/
+/out/
+
+# production
+/build
+
+# testing
+/coverage
+/playwright-report
+/test-results
+/storybook-static
+
+# local
+.DS_Store
+*.pem
+*.log
+
+# environment
+.env*
+!.env.example
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+
+# Python backend
+/backend/.venv/
+/backend/.pytest_cache/
+/backend/**/__pycache__/
+/backend/.env
+*.pyc
+
+# Local SQLite data
+/backend/data/
+
+# Production deployment secrets and data
+/deploy/.env.production
+/deploy/secrets/*.txt
+/deploy/certs/*.pem
+/deploy/backups/
+/backend/data/*.db*
+!/deploy/secrets/*.txt.example

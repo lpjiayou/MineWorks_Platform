@@ -1,0 +1,95 @@
+{
+  "version": "1.0.0",
+  "base_url": "/api/v1",
+  "authentication": {
+    "scheme": "Bearer",
+    "team_header": "X-Team-Id"
+  },
+  "endpoints": [
+    {
+      "method": "POST",
+      "path": "/auth/register",
+      "auth": false,
+      "description": "注册用户并创建初始团队"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/login",
+      "auth": false,
+      "description": "创建服务端会话"
+    },
+    {
+      "method": "GET",
+      "path": "/auth/me",
+      "auth": true,
+      "description": "当前用户、团队和权限"
+    },
+    {
+      "method": "POST",
+      "path": "/auth/logout",
+      "auth": true,
+      "description": "撤销当前会话"
+    },
+    {
+      "method": "GET",
+      "path": "/teams/{team_id}/members",
+      "auth": true,
+      "permission": "team.members.read"
+    },
+    {
+      "method": "POST",
+      "path": "/teams/{team_id}/members",
+      "auth": true,
+      "permission": "team.members.manage"
+    },
+    {
+      "method": "POST",
+      "path": "/teams/{team_id}/invitations",
+      "auth": true,
+      "permission": "team.members.manage"
+    },
+    {
+      "method": "POST",
+      "path": "/team-invitations/accept",
+      "auth": true
+    },
+    {
+      "method": "GET",
+      "path": "/teams/{team_id}/audit-logs",
+      "auth": true,
+      "permission": "team.audit.read"
+    },
+    {
+      "method": "GET",
+      "path": "/projects/{project_id}/members",
+      "auth": true,
+      "project_role": "viewer"
+    },
+    {
+      "method": "POST",
+      "path": "/projects/{project_id}/members",
+      "auth": true,
+      "project_role": "manager"
+    },
+    {
+      "method": "POST",
+      "path": "/calculation-records",
+      "auth": true,
+      "permission": "record.create"
+    }
+  ],
+  "error_codes": [
+    "AUTH_REQUIRED",
+    "SESSION_INVALID",
+    "INVALID_CREDENTIALS",
+    "EMAIL_EXISTS",
+    "PASSWORD_POLICY_FAILED",
+    "PERMISSION_DENIED",
+    "TEAM_CONTEXT_REQUIRED",
+    "TEAM_CONTEXT_MISMATCH",
+    "OWNER_ROLE_REQUIRED",
+    "INVITATION_INVALID",
+    "PROJECT_NOT_FOUND",
+    "RECORD_NOT_FOUND"
+  ]
+}

@@ -1,0 +1,13 @@
+.field { display: grid; gap: 7px; }
+.label { font-size: 13px; font-weight: 800; }
+.required { margin-left: 3px; color: var(--mw-danger); }
+.shell { display: grid; grid-template-columns: minmax(0, 1fr) 112px; min-height: var(--mw-field-height); overflow: hidden; border: 1px solid var(--mw-border); border-radius: var(--mw-radius-md); background: var(--mw-surface-soft); }
+.shell:focus-within { border-color: var(--mw-brand-primary); box-shadow: 0 0 0 3px color-mix(in srgb, var(--mw-brand-primary) 14%, transparent); }
+.shell input { min-width: 0; padding: 0 12px; border: 0; outline: 0; color: var(--mw-text-primary); background: transparent; }
+.shell select { padding: 0 9px; border: 0; border-left: 1px solid var(--mw-border); outline: 0; color: var(--mw-text-primary); background: var(--mw-surface); }
+.warning { border-color: var(--mw-warning); }
+.error { border-color: var(--mw-danger); }
+.helpText,.warningText,.errorText { min-height: 16px; font-size: 11px; line-height: 1.5; }
+.helpText { color: var(--mw-text-muted); }
+.warningText { color: var(--mw-warning); }
+.errorText { color: var(--mw-danger); }

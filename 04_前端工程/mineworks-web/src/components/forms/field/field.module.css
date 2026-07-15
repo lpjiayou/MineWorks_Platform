@@ -1,0 +1,51 @@
+.field {
+  display: grid;
+  gap: 7px;
+}
+
+.labelRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.label {
+  color: var(--mw-text-primary);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.required {
+  margin-left: 4px;
+  color: var(--mw-danger);
+}
+
+.optional {
+  margin-left: 7px;
+  color: var(--mw-text-muted);
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.labelAction {
+  flex: 0 0 auto;
+  color: var(--mw-text-muted);
+  font-size: 11px;
+}
+
+.message {
+  min-height: 16px;
+  color: var(--mw-text-muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.success .message { color: var(--mw-success); }
+.warning .message { color: var(--mw-warning); }
+.error .message { color: var(--mw-danger); }
+
+.field:has([aria-invalid="true"]) :is(input, select, textarea) {
+  border-color: var(--mw-danger);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--mw-danger) 10%, transparent);
+}

@@ -1,0 +1,28 @@
+.state {
+  min-height: 190px;
+  padding: 24px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  text-align: center;
+  border: 1px dashed var(--mw-border-strong);
+  border-radius: var(--mw-radius-lg);
+  background: var(--mw-surface-soft);
+}
+.sm { min-height: 150px; padding: 18px; }
+.lg { min-height: 260px; padding: 36px; }
+.icon {
+  width: 56px;
+  height: 56px;
+  margin-bottom: 12px;
+  display: grid;
+  place-items: center;
+  color: var(--mw-brand-primary);
+  background: var(--mw-brand-soft);
+  border-radius: 17px;
+}
+.neutral .icon { color: var(--mw-text-secondary); background: var(--mw-surface-strong); }
+.info .icon { color: var(--mw-info); background: var(--mw-info-soft); }
+.state h3 { margin: 0 0 7px; font-size: 16px; }
+.state p { max-width: 420px; margin: 0; color: var(--mw-text-muted); font-size: 12px; line-height: 1.65; }
+.actions { margin-top: 15px; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }

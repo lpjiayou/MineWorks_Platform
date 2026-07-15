@@ -1,0 +1,9 @@
+.badge { min-height: 24px; padding: 0 8px; display: inline-flex; align-items: center; gap: 5px; border-radius: var(--mw-radius-round); font-size: 11px; font-weight: 800; white-space: nowrap; }
+.brand { color: var(--mw-brand-dark); background: var(--mw-brand-soft); }
+.success { color: var(--mw-success); background: var(--mw-success-soft); }
+.info { color: var(--mw-info); background: var(--mw-info-soft); }
+.warning { color: var(--mw-warning); background: var(--mw-warning-soft); }
+.danger { color: var(--mw-danger); background: var(--mw-danger-soft); }
+.professional { color: var(--mw-copper); background: var(--mw-copper-soft); }
+.team { color: var(--mw-violet); background: var(--mw-violet-soft); }
+.neutral { color: var(--mw-text-secondary); background: var(--mw-surface-strong); }

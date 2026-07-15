@@ -1,0 +1,1 @@
+.main{width:min(var(--mw-container),calc(100% - 48px));margin:24px auto 70px}@media(max-width:720px){.main{width:calc(100% - 28px)}}

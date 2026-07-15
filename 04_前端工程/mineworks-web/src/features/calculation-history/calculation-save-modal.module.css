@@ -1,0 +1,8 @@
+.stack { display:grid; gap:18px; }
+.input,.textarea { width:100%; border:1px solid var(--mw-border); border-radius:var(--mw-radius-md); background:var(--mw-surface-soft); color:var(--mw-text-primary); padding:0 12px; }
+.input { min-height:var(--mw-field-height); }
+.textarea { padding-block:10px; resize:vertical; }
+.input:focus,.textarea:focus { outline:3px solid color-mix(in srgb,var(--mw-brand-primary) 18%,transparent); border-color:var(--mw-brand-primary); }
+.newProject { display:grid; gap:13px; padding:16px; border:1px solid color-mix(in srgb,var(--mw-brand-primary) 30%,var(--mw-border)); border-radius:var(--mw-radius-lg); background:var(--mw-brand-soft); }
+.newProjectTitle { display:flex; align-items:center; gap:8px; color:var(--mw-brand-dark); }
+.error { padding:11px 13px; border-radius:var(--mw-radius-md); color:var(--mw-danger); background:var(--mw-danger-soft); border:1px solid color-mix(in srgb,var(--mw-danger) 30%,var(--mw-border)); font-size:12px; }

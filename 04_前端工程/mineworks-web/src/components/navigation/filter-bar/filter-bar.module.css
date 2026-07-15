@@ -1,0 +1,24 @@
+.root { border: 1px solid var(--mw-border); border-radius: var(--mw-radius-lg); background: var(--mw-surface); overflow: hidden; }
+.toolbar { display: grid; grid-template-columns: minmax(240px, 1fr) 190px auto auto; gap: 9px; align-items: center; padding: 11px; }
+.viewSwitch { display: inline-flex; padding: 3px; border: 1px solid var(--mw-border); border-radius: var(--mw-radius-md); background: var(--mw-surface-soft); }
+.viewSwitch button { width: 34px; height: 34px; border: 0; border-radius: 8px; display: grid; place-items: center; color: var(--mw-text-muted); background: transparent; }
+.viewSwitch button[aria-pressed="true"] { color: var(--mw-brand-primary); background: var(--mw-surface); box-shadow: var(--mw-shadow-xs); }
+.filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; padding: 14px; border-top: 1px solid var(--mw-border); background: var(--mw-surface-soft); }
+.filters fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
+.filters legend { margin-bottom: 10px; color: var(--mw-text-secondary); font-size: 10px; font-weight: 800; }
+.options { display: grid; gap: 8px; }
+.footer { min-height: 45px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 12px; border-top: 1px solid var(--mw-border); }
+.chips { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; min-width: 0; color: var(--mw-text-muted); font-size: 9px; }
+.chip { min-height: 27px; padding: 0 8px; border: 1px solid color-mix(in srgb, var(--mw-brand-primary) 25%, var(--mw-border)); border-radius: var(--mw-radius-round); display: inline-flex; align-items: center; gap: 5px; color: var(--mw-brand-dark); background: var(--mw-brand-soft); font-size: 9px; }
+.footerActions { display: flex; align-items: center; gap: 8px; flex: 0 0 auto; }
+.footerActions strong { font-size: 10px; white-space: nowrap; }
+@media (min-width: 721px) { .toolbar > button:nth-of-type(1) { display: none; } }
+@media (max-width: 720px) {
+  .toolbar { grid-template-columns: 1fr auto; }
+  .toolbar > :first-child { grid-column: 1 / -1; }
+  .toolbar > select { min-width: 0; }
+  .filters { display: none; grid-template-columns: 1fr; }
+  .filters.open { display: grid; }
+  .footer { align-items: flex-start; flex-direction: column; }
+  .footerActions { width: 100%; justify-content: space-between; }
+}

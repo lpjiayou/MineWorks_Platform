@@ -1,0 +1,9 @@
+.nav { min-width: 0; }
+.nav ol { display: flex; align-items: center; gap: 6px; min-width: 0; margin: 0; padding: 0; list-style: none; overflow: hidden; }
+.nav li { display: inline-flex; align-items: center; gap: 6px; min-width: 0; }
+.link, .current, .ellipsis { display: inline-flex; align-items: center; gap: 5px; min-width: 0; color: var(--mw-text-secondary); font-size: 11px; white-space: nowrap; }
+.link:hover { color: var(--mw-brand-primary); }
+.current { color: var(--mw-text-primary); font-weight: 700; overflow: hidden; text-overflow: ellipsis; }
+.separator { flex: 0 0 auto; color: var(--mw-text-muted); }
+.ellipsis { color: var(--mw-text-muted); }
+@media (max-width: 560px) { .nav li:not(:first-child):not(:nth-last-child(-n+2)) { display: none; } }

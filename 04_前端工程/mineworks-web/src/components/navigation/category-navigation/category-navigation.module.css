@@ -1,0 +1,44 @@
+.root {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+.item {
+  min-width: 0;
+  min-height: 76px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 11px;
+  padding: 13px;
+  border: 1px solid var(--mw-border);
+  border-radius: var(--mw-radius-lg);
+  color: var(--mw-text-primary);
+  background: linear-gradient(180deg, var(--mw-surface), var(--mw-surface-soft));
+  text-align: left;
+  transition: border-color var(--mw-duration-normal), transform var(--mw-duration-normal), box-shadow var(--mw-duration-normal), background var(--mw-duration-normal);
+}
+.item:hover { transform: translateY(-2px); border-color: var(--mw-brand-primary); box-shadow: var(--mw-shadow-sm); }
+.item:focus-visible { outline: 3px solid color-mix(in srgb, var(--mw-brand-primary) 22%, transparent); outline-offset: 2px; }
+.selected {
+  border-color: color-mix(in srgb, var(--mw-brand-primary) 58%, var(--mw-border));
+  background: linear-gradient(135deg, var(--mw-brand-soft), var(--mw-surface));
+  box-shadow: inset 3px 0 0 var(--mw-brand-primary), var(--mw-shadow-xs);
+}
+.icon {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  color: var(--mw-brand-primary);
+  background: var(--mw-brand-soft);
+}
+.content { min-width: 0; }
+.content strong { display: block; font-size: 13px; line-height: 1.35; }
+.content small { display: block; margin-top: 4px; overflow: hidden; color: var(--mw-text-muted); font-size: 10px; line-height: 1.45; text-overflow: ellipsis; white-space: nowrap; }
+.count { min-width: 27px; height: 25px; display: grid; place-items: center; padding: 0 6px; border-radius: var(--mw-radius-round); color: var(--mw-text-secondary); background: var(--mw-surface-strong); font: 10px var(--mw-font-mono); }
+.selected .count { color: var(--mw-brand-dark); background: color-mix(in srgb, var(--mw-brand-primary) 13%, var(--mw-surface)); }
+@media (max-width: 1180px) { .root { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (max-width: 820px) { .root { display: flex; overflow-x: auto; padding-bottom: 5px; scroll-snap-type: x proximity; } .item { min-width: 230px; scroll-snap-align: start; } }
+@media (max-width: 560px) { .item { min-width: 205px; min-height: 70px; } .icon { width: 36px; height: 36px; } }

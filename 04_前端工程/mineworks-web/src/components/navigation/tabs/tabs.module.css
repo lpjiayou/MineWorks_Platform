@@ -1,0 +1,72 @@
+.root { min-width: 0; }
+.horizontal { display: block; }
+.vertical { display: grid; grid-template-columns: minmax(150px, 220px) minmax(0, 1fr); gap: 14px; }
+.tabList { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: thin; }
+.vertical .tabList { flex-direction: column; }
+.tab {
+  min-height: 38px;
+  padding: 0 13px;
+  border: 0;
+  border-radius: var(--mw-radius-sm);
+  color: var(--mw-text-secondary);
+  background: transparent;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--mw-duration-normal), background var(--mw-duration-normal), box-shadow var(--mw-duration-normal);
+}
+.tab:hover:not(:disabled) { color: var(--mw-text-primary); background: var(--mw-surface-strong); }
+.tab:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--mw-brand-primary) 20%, transparent);
+  outline-offset: 1px;
+}
+.tab:disabled { cursor: not-allowed; opacity: 0.45; }
+.line { border-bottom: 1px solid var(--mw-border); gap: 10px; }
+.line .tab { position: relative; border-radius: 0; }
+.line .tab::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  bottom: -1px;
+  height: 2px;
+  border-radius: 2px;
+  background: transparent;
+}
+.line .selected { color: var(--mw-brand-primary); }
+.line .selected::after { background: var(--mw-brand-primary); }
+.card {
+  padding: 4px;
+  border: 1px solid var(--mw-border);
+  border-radius: var(--mw-radius-md);
+  background: var(--mw-surface-soft);
+}
+.card .selected { color: var(--mw-brand-primary); background: var(--mw-surface); box-shadow: var(--mw-shadow-xs); }
+.segmented {
+  width: fit-content;
+  padding: 4px;
+  border: 1px solid var(--mw-border);
+  border-radius: var(--mw-radius-md);
+  background: var(--mw-surface-soft);
+}
+.segmented .selected { color: var(--mw-text-inverse); background: var(--mw-brand-primary); }
+.panel {
+  margin-top: 12px;
+  padding: 15px;
+  border: 1px solid var(--mw-border);
+  border-radius: var(--mw-radius-md);
+  background: var(--mw-surface-soft);
+  color: var(--mw-text-secondary);
+  font-size: 12px;
+  line-height: 1.7;
+}
+.vertical .panel { margin-top: 0; }
+.panel:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--mw-brand-primary) 20%, transparent);
+  outline-offset: 2px;
+}
+@media (max-width: 720px) {
+  .vertical { grid-template-columns: 1fr; }
+  .vertical .tabList { flex-direction: row; }
+}

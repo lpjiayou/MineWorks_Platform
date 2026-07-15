@@ -1,0 +1,5118 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "MineWorks API",
+    "description": "矿业智工平台工程计算API。计算核心、权限、数据库和HTTP层严格分离。",
+    "version": "1.1.0"
+  },
+  "paths": {
+    "/api/v1/health": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Health",
+        "operationId": "health_api_v1_health_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/ready": {
+      "get": {
+        "tags": [
+          "health"
+        ],
+        "summary": "Readiness",
+        "operationId": "readiness_api_v1_ready_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object",
+                  "title": "Response Readiness Api V1 Ready Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/register": {
+      "post": {
+        "tags": [
+          "identity-and-authorization"
+        ],
+        "summary": "Register",
+        "operationId": "register_api_v1_auth_register_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSessionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/login": {
+      "post": {
+        "tags": [
+          "identity-and-authorization"
+        ],
+        "summary": "Login",
+        "operationId": "login_api_v1_auth_login_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthSessionResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/me": {
+      "get": {
+        "tags": [
+          "identity-and-authorization"
+        ],
+        "summary": "Me",
+        "operationId": "me_api_v1_auth_me_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IdentityResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/sessions": {
+      "get": {
+        "tags": [
+          "identity-and-authorization"
+        ],
+        "summary": "Sessions",
+        "operationId": "sessions_api_v1_auth_sessions_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SessionSummary"
+                  },
+                  "title": "Response Sessions Api V1 Auth Sessions Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/sessions/revoke-others": {
+      "post": {
+        "tags": [
+          "identity-and-authorization"
+        ],
+        "summary": "Revoke Other Sessions",
+        "operationId": "revoke_other_sessions_api_v1_auth_sessions_revoke_others_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "integer"
+                  },
+                  "title": "Response Revoke Other Sessions Api V1 Auth Sessions Revoke Others Post"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/auth/logout": {
+      "post": {
+        "tags": [
+          "identity-and-authorization"
+        ],
+        "summary": "Logout",
+        "operationId": "logout_api_v1_auth_logout_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/teams": {
+      "post": {
+        "tags": [
+          "identity-and-authorization"
+        ],
+        "summary": "Create Team",
+        "operationId": "create_team_api_v1_teams_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeamCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "identity-and-authorization"
+        ],
+        "summary": "List Teams",
+        "operationId": "list_teams_api_v1_teams_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TeamResponse"
+                  },
+                  "title": "Response List Teams Api V1 Teams Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/teams/{team_id}/members": {
+      "get": {
+        "tags": [
+          "identity-and-authorization"
+        ],
+        "summary": "List Members",
+        "operationId": "list_members_api_v1_teams__team_id__members_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Team Id"
+            }
+          },
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TeamMemberResponse"
+                  },
+                  "title": "Response List Members Api V1 Teams  Team Id  Members Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "identity-and-authorization"
+        ],
+        "summary": "Add Member",
+        "operationId": "add_member_api_v1_teams__team_id__members_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Team Id"
+            }
+          },
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeamMemberAdd"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamMemberResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/teams/{team_id}/members/{user_id}": {
+      "patch": {
+        "tags": [
+          "identity-and-authorization"
+        ],
+        "summary": "Update Member",
+        "operationId": "update_member_api_v1_teams__team_id__members__user_id__patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Team Id"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          },
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeamMemberRoleUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamMemberResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "identity-and-authorization"
+        ],
+        "summary": "Remove Member",
+        "operationId": "remove_member_api_v1_teams__team_id__members__user_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Team Id"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          },
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/teams/{team_id}/invitations": {
+      "post": {
+        "tags": [
+          "identity-and-authorization"
+        ],
+        "summary": "Create Invitation",
+        "operationId": "create_invitation_api_v1_teams__team_id__invitations_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Team Id"
+            }
+          },
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TeamInvitationCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamInvitationResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "identity-and-authorization"
+        ],
+        "summary": "List Invitations",
+        "operationId": "list_invitations_api_v1_teams__team_id__invitations_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Team Id"
+            }
+          },
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TeamInvitationResponse"
+                  },
+                  "title": "Response List Invitations Api V1 Teams  Team Id  Invitations Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/team-invitations/accept": {
+      "post": {
+        "tags": [
+          "identity-and-authorization"
+        ],
+        "summary": "Accept Invitation",
+        "operationId": "accept_invitation_api_v1_team_invitations_accept_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InvitationAcceptRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TeamResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/teams/{team_id}/audit-logs": {
+      "get": {
+        "tags": [
+          "identity-and-authorization"
+        ],
+        "summary": "Audit Logs",
+        "operationId": "audit_logs_api_v1_teams__team_id__audit_logs_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "team_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Team Id"
+            }
+          },
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AuditLogResponse"
+                  },
+                  "title": "Response Audit Logs Api V1 Teams  Team Id  Audit Logs Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/plans": {
+      "get": {
+        "tags": [
+          "plans-entitlements-and-billing"
+        ],
+        "summary": "Plans",
+        "operationId": "plans_api_v1_plans_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/PlanResponse"
+                  },
+                  "type": "array",
+                  "title": "Response Plans Api V1 Plans Get"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/billing/entitlements": {
+      "get": {
+        "tags": [
+          "plans-entitlements-and-billing"
+        ],
+        "summary": "Entitlements",
+        "operationId": "entitlements_api_v1_billing_entitlements_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntitlementResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/billing/orders": {
+      "get": {
+        "tags": [
+          "plans-entitlements-and-billing"
+        ],
+        "summary": "Orders",
+        "operationId": "orders_api_v1_billing_orders_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/BillingOrderResponse"
+                  },
+                  "title": "Response Orders Api V1 Billing Orders Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/billing/subscriptions": {
+      "get": {
+        "tags": [
+          "plans-entitlements-and-billing"
+        ],
+        "summary": "Subscriptions",
+        "operationId": "subscriptions_api_v1_billing_subscriptions_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SubscriptionResponse"
+                  },
+                  "title": "Response Subscriptions Api V1 Billing Subscriptions Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/billing/checkout-intents": {
+      "post": {
+        "tags": [
+          "plans-entitlements-and-billing"
+        ],
+        "summary": "Create Checkout Intent",
+        "operationId": "create_checkout_intent_api_v1_billing_checkout_intents_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CheckoutIntentCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingOrderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/billing/orders/{order_id}/simulate-paid": {
+      "post": {
+        "tags": [
+          "plans-entitlements-and-billing"
+        ],
+        "summary": "Simulate Paid",
+        "operationId": "simulate_paid_api_v1_billing_orders__order_id__simulate_paid_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Order Id"
+            }
+          },
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BillingOrderResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tools/dry-solids-rate/calculate": {
+      "post": {
+        "tags": [
+          "dry-solids-rate"
+        ],
+        "summary": "Calculate Endpoint",
+        "operationId": "calculate_endpoint_api_v1_tools_dry_solids_rate_calculate_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-request-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Request-Id"
+            }
+          },
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DrySolidsCalculateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DrySolidsCalculateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/tools/slurry-density-conversion/calculate": {
+      "post": {
+        "tags": [
+          "slurry-density-conversion"
+        ],
+        "summary": "Calculate Endpoint",
+        "operationId": "calculate_endpoint_api_v1_tools_slurry_density_conversion_calculate_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-request-id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Request-Id"
+            }
+          },
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SlurryDensityCalculateRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SlurryDensityCalculateResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/projects": {
+      "post": {
+        "tags": [
+          "projects-and-history"
+        ],
+        "summary": "Create Project",
+        "operationId": "create_project_api_v1_projects_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "projects-and-history"
+        ],
+        "summary": "List Projects",
+        "operationId": "list_projects_api_v1_projects_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "include_archived",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": false,
+              "title": "Include Archived"
+            }
+          },
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectListResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/projects/{project_id}": {
+      "get": {
+        "tags": [
+          "projects-and-history"
+        ],
+        "summary": "Get Project",
+        "operationId": "get_project_api_v1_projects__project_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Project Id"
+            }
+          },
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/projects/{project_id}/members": {
+      "get": {
+        "tags": [
+          "projects-and-history"
+        ],
+        "summary": "List Project Members",
+        "operationId": "list_project_members_api_v1_projects__project_id__members_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Project Id"
+            }
+          },
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ProjectMemberResponse"
+                  },
+                  "title": "Response List Project Members Api V1 Projects  Project Id  Members Get"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "projects-and-history"
+        ],
+        "summary": "Add Project Member",
+        "operationId": "add_project_member_api_v1_projects__project_id__members_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Project Id"
+            }
+          },
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectMemberAdd"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectMemberResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/projects/{project_id}/members/{user_id}": {
+      "patch": {
+        "tags": [
+          "projects-and-history"
+        ],
+        "summary": "Update Project Member",
+        "operationId": "update_project_member_api_v1_projects__project_id__members__user_id__patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Project Id"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          },
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProjectMemberRoleUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectMemberResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "projects-and-history"
+        ],
+        "summary": "Remove Project Member",
+        "operationId": "remove_project_member_api_v1_projects__project_id__members__user_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "project_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Project Id"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            }
+          },
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/calculation-records": {
+      "post": {
+        "tags": [
+          "projects-and-history"
+        ],
+        "summary": "Create Record",
+        "operationId": "create_record_api_v1_calculation_records_post",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CalculationRecordCreate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CalculationRecordResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "projects-and-history"
+        ],
+        "summary": "List Records",
+        "operationId": "list_records_api_v1_calculation_records_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "tool_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Tool Id"
+            }
+          },
+          {
+            "name": "project_id",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Project Id"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Q"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "maximum": 200,
+              "minimum": 1,
+              "default": 100,
+              "title": "Limit"
+            }
+          },
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CalculationRecordListResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/calculation-records/{record_id}": {
+      "get": {
+        "tags": [
+          "projects-and-history"
+        ],
+        "summary": "Get Record",
+        "operationId": "get_record_api_v1_calculation_records__record_id__get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Record Id"
+            }
+          },
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CalculationRecordResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "projects-and-history"
+        ],
+        "summary": "Update Record",
+        "operationId": "update_record_api_v1_calculation_records__record_id__patch",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Record Id"
+            }
+          },
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CalculationRecordUpdate"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CalculationRecordResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "projects-and-history"
+        ],
+        "summary": "Delete Record",
+        "operationId": "delete_record_api_v1_calculation_records__record_id__delete",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Record Id"
+            }
+          },
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/calculation-records/{record_id}/reuse": {
+      "get": {
+        "tags": [
+          "projects-and-history"
+        ],
+        "summary": "Reuse Record",
+        "operationId": "reuse_record_api_v1_calculation_records__record_id__reuse_get",
+        "security": [
+          {
+            "HTTPBearer": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "record_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Record Id"
+            }
+          },
+          {
+            "name": "target_tool_id",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Target Tool Id"
+            }
+          },
+          {
+            "name": "X-Team-Id",
+            "in": "header",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Team-Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReusePackageResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AuditLogResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "actor_user_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actor User Id"
+          },
+          "actor_display_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actor Display Name"
+          },
+          "team_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Team Id"
+          },
+          "project_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Project Id"
+          },
+          "action": {
+            "type": "string",
+            "title": "Action"
+          },
+          "resource_type": {
+            "type": "string",
+            "title": "Resource Type"
+          },
+          "resource_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Resource Id"
+          },
+          "metadata": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Metadata"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "actor_user_id",
+          "team_id",
+          "project_id",
+          "action",
+          "resource_type",
+          "resource_id",
+          "metadata",
+          "created_at"
+        ],
+        "title": "AuditLogResponse"
+      },
+      "AuthSessionResponse": {
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/UserResponse"
+          },
+          "teams": {
+            "items": {
+              "$ref": "#/components/schemas/TeamResponse"
+            },
+            "type": "array",
+            "title": "Teams"
+          },
+          "active_team_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Team Id"
+          },
+          "permissions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Permissions"
+          },
+          "expires_at": {
+            "type": "string",
+            "title": "Expires At"
+          },
+          "access_token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Access Token"
+          },
+          "token_type": {
+            "type": "string",
+            "enum": [
+              "bearer",
+              "cookie"
+            ],
+            "title": "Token Type",
+            "default": "cookie"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user",
+          "teams",
+          "active_team_id",
+          "permissions",
+          "expires_at"
+        ],
+        "title": "AuthSessionResponse"
+      },
+      "BillingOrderResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "team_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Team Id"
+          },
+          "subject_type": {
+            "type": "string",
+            "enum": [
+              "user",
+              "team"
+            ],
+            "title": "Subject Type"
+          },
+          "subject_id": {
+            "type": "string",
+            "title": "Subject Id"
+          },
+          "target_plan": {
+            "type": "string",
+            "enum": [
+              "free",
+              "professional",
+              "team",
+              "enterprise"
+            ],
+            "title": "Target Plan"
+          },
+          "billing_cycle": {
+            "type": "string",
+            "enum": [
+              "monthly",
+              "annual"
+            ],
+            "title": "Billing Cycle"
+          },
+          "amount_fen": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Amount Fen"
+          },
+          "currency": {
+            "type": "string",
+            "title": "Currency"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "paid",
+              "cancelled",
+              "failed"
+            ],
+            "title": "Status"
+          },
+          "provider": {
+            "type": "string",
+            "title": "Provider"
+          },
+          "provider_reference": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Provider Reference"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "title": "Updated At"
+          },
+          "paid_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Paid At"
+          },
+          "payment_action": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Payment Action"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "user_id",
+          "team_id",
+          "subject_type",
+          "subject_id",
+          "target_plan",
+          "billing_cycle",
+          "amount_fen",
+          "currency",
+          "status",
+          "provider",
+          "provider_reference",
+          "created_at",
+          "updated_at",
+          "paid_at"
+        ],
+        "title": "BillingOrderResponse"
+      },
+      "CalculationRecordCreate": {
+        "properties": {
+          "source_request_id": {
+            "type": "string",
+            "title": "Source Request Id"
+          },
+          "tool_id": {
+            "type": "string",
+            "title": "Tool Id"
+          },
+          "tool_name": {
+            "type": "string",
+            "title": "Tool Name"
+          },
+          "tool_version": {
+            "type": "string",
+            "title": "Tool Version"
+          },
+          "formula_version": {
+            "type": "string",
+            "title": "Formula Version"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "project_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Project Id"
+          },
+          "data_source": {
+            "type": "string",
+            "title": "Data Source",
+            "default": "manual"
+          },
+          "validity": {
+            "type": "string",
+            "title": "Validity"
+          },
+          "computed_at": {
+            "type": "string",
+            "title": "Computed At"
+          },
+          "inputs": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Inputs"
+          },
+          "normalized_inputs": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Normalized Inputs"
+          },
+          "results": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Results"
+          },
+          "steps": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Steps"
+          },
+          "warnings": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Warnings"
+          },
+          "assumptions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Assumptions"
+          },
+          "reusable_outputs": {
+            "items": {
+              "$ref": "#/components/schemas/ReusableOutput"
+            },
+            "type": "array",
+            "title": "Reusable Outputs"
+          },
+          "tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tags"
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 2000,
+            "title": "Note",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "source_request_id",
+          "tool_id",
+          "tool_name",
+          "tool_version",
+          "formula_version",
+          "title",
+          "validity",
+          "computed_at",
+          "inputs",
+          "normalized_inputs",
+          "results"
+        ],
+        "title": "CalculationRecordCreate"
+      },
+      "CalculationRecordListResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/CalculationRecordResponse"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "total"
+        ],
+        "title": "CalculationRecordListResponse"
+      },
+      "CalculationRecordResponse": {
+        "properties": {
+          "source_request_id": {
+            "type": "string",
+            "title": "Source Request Id"
+          },
+          "tool_id": {
+            "type": "string",
+            "title": "Tool Id"
+          },
+          "tool_name": {
+            "type": "string",
+            "title": "Tool Name"
+          },
+          "tool_version": {
+            "type": "string",
+            "title": "Tool Version"
+          },
+          "formula_version": {
+            "type": "string",
+            "title": "Formula Version"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 160,
+            "minLength": 1,
+            "title": "Title"
+          },
+          "project_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Project Id"
+          },
+          "data_source": {
+            "type": "string",
+            "title": "Data Source",
+            "default": "manual"
+          },
+          "validity": {
+            "type": "string",
+            "title": "Validity"
+          },
+          "computed_at": {
+            "type": "string",
+            "title": "Computed At"
+          },
+          "inputs": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Inputs"
+          },
+          "normalized_inputs": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Normalized Inputs"
+          },
+          "results": {
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Results"
+          },
+          "steps": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Steps"
+          },
+          "warnings": {
+            "items": {
+              "additionalProperties": true,
+              "type": "object"
+            },
+            "type": "array",
+            "title": "Warnings"
+          },
+          "assumptions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Assumptions"
+          },
+          "reusable_outputs": {
+            "items": {
+              "$ref": "#/components/schemas/ReusableOutput"
+            },
+            "type": "array",
+            "title": "Reusable Outputs"
+          },
+          "tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Tags"
+          },
+          "note": {
+            "type": "string",
+            "maxLength": 2000,
+            "title": "Note",
+            "default": ""
+          },
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "team_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Team Id"
+          },
+          "owner_user_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Owner User Id"
+          },
+          "created_by": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created By"
+          },
+          "saved_at": {
+            "type": "string",
+            "title": "Saved At"
+          },
+          "updated_at": {
+            "type": "string",
+            "title": "Updated At"
+          },
+          "project": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ProjectResponse"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        },
+        "type": "object",
+        "required": [
+          "source_request_id",
+          "tool_id",
+          "tool_name",
+          "tool_version",
+          "formula_version",
+          "title",
+          "validity",
+          "computed_at",
+          "inputs",
+          "normalized_inputs",
+          "results",
+          "id",
+          "saved_at",
+          "updated_at"
+        ],
+        "title": "CalculationRecordResponse"
+      },
+      "CalculationRecordUpdate": {
+        "properties": {
+          "title": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 160,
+                "minLength": 1
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Title"
+          },
+          "project_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Project Id"
+          },
+          "clear_project": {
+            "type": "boolean",
+            "title": "Clear Project",
+            "default": false
+          },
+          "tags": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Tags"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 2000
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          }
+        },
+        "type": "object",
+        "title": "CalculationRecordUpdate"
+      },
+      "CalculationStep": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Description"
+          },
+          "formula": {
+            "type": "string",
+            "title": "Formula"
+          },
+          "substituted_expression": {
+            "type": "string",
+            "title": "Substituted Expression"
+          },
+          "result": {
+            "$ref": "#/components/schemas/ResultValue"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "title",
+          "formula",
+          "substituted_expression",
+          "result"
+        ],
+        "title": "CalculationStep"
+      },
+      "CheckoutIntentCreate": {
+        "properties": {
+          "subject_type": {
+            "type": "string",
+            "enum": [
+              "user",
+              "team"
+            ],
+            "title": "Subject Type"
+          },
+          "target_plan": {
+            "type": "string",
+            "enum": [
+              "free",
+              "professional",
+              "team",
+              "enterprise"
+            ],
+            "title": "Target Plan"
+          },
+          "billing_cycle": {
+            "type": "string",
+            "enum": [
+              "monthly",
+              "annual"
+            ],
+            "title": "Billing Cycle",
+            "default": "monthly"
+          }
+        },
+        "type": "object",
+        "required": [
+          "subject_type",
+          "target_plan"
+        ],
+        "title": "CheckoutIntentCreate"
+      },
+      "DrySolidsCalculateRequest": {
+        "properties": {
+          "tool_id": {
+            "type": "string",
+            "const": "dry-solids-rate",
+            "title": "Tool Id",
+            "default": "dry-solids-rate"
+          },
+          "formula_version": {
+            "type": "string",
+            "const": "1.0.0",
+            "title": "Formula Version",
+            "default": "1.0.0"
+          },
+          "inputs": {
+            "$ref": "#/components/schemas/DrySolidsInputs"
+          }
+        },
+        "type": "object",
+        "required": [
+          "inputs"
+        ],
+        "title": "DrySolidsCalculateRequest"
+      },
+      "DrySolidsCalculateResponse": {
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "title": "Request Id"
+          },
+          "tool_id": {
+            "type": "string",
+            "const": "dry-solids-rate",
+            "title": "Tool Id",
+            "default": "dry-solids-rate"
+          },
+          "formula_version": {
+            "type": "string",
+            "const": "1.0.0",
+            "title": "Formula Version",
+            "default": "1.0.0"
+          },
+          "computed_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Computed At"
+          },
+          "validity": {
+            "type": "string",
+            "enum": [
+              "VALID",
+              "CAUTION",
+              "INVALID"
+            ],
+            "title": "Validity"
+          },
+          "summary": {
+            "type": "string",
+            "title": "Summary"
+          },
+          "normalized_inputs": {
+            "$ref": "#/components/schemas/NormalizedDrySolidsInputs"
+          },
+          "results": {
+            "$ref": "#/components/schemas/DrySolidsResults"
+          },
+          "steps": {
+            "items": {
+              "$ref": "#/components/schemas/CalculationStep"
+            },
+            "type": "array",
+            "title": "Steps"
+          },
+          "warnings": {
+            "items": {
+              "$ref": "#/components/schemas/EngineeringWarning"
+            },
+            "type": "array",
+            "title": "Warnings"
+          },
+          "assumptions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Assumptions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "request_id",
+          "computed_at",
+          "validity",
+          "summary",
+          "normalized_inputs",
+          "results",
+          "steps",
+          "warnings",
+          "assumptions"
+        ],
+        "title": "DrySolidsCalculateResponse"
+      },
+      "DrySolidsInputs": {
+        "properties": {
+          "slurry_volume_flow": {
+            "$ref": "#/components/schemas/UnitValue"
+          },
+          "slurry_density": {
+            "$ref": "#/components/schemas/UnitValue"
+          },
+          "solids_mass_fraction": {
+            "$ref": "#/components/schemas/UnitValue"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slurry_volume_flow",
+          "slurry_density",
+          "solids_mass_fraction"
+        ],
+        "title": "DrySolidsInputs"
+      },
+      "DrySolidsResults": {
+        "properties": {
+          "slurry_mass_flow": {
+            "$ref": "#/components/schemas/ResultValue"
+          },
+          "dry_solids_rate": {
+            "$ref": "#/components/schemas/ResultValue"
+          },
+          "water_mass_flow": {
+            "$ref": "#/components/schemas/ResultValue"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slurry_mass_flow",
+          "dry_solids_rate",
+          "water_mass_flow"
+        ],
+        "title": "DrySolidsResults"
+      },
+      "EngineeringWarning": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Code"
+          },
+          "severity": {
+            "type": "string",
+            "enum": [
+              "info",
+              "warning"
+            ],
+            "title": "Severity"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "message": {
+            "type": "string",
+            "title": "Message"
+          },
+          "field": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Field"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code",
+          "severity",
+          "title",
+          "message"
+        ],
+        "title": "EngineeringWarning"
+      },
+      "EntitlementResponse": {
+        "properties": {
+          "user_plan": {
+            "type": "string",
+            "enum": [
+              "free",
+              "professional",
+              "team",
+              "enterprise"
+            ],
+            "title": "User Plan"
+          },
+          "team_plan": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "free",
+                  "professional",
+                  "team",
+                  "enterprise"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Team Plan"
+          },
+          "effective_plan": {
+            "type": "string",
+            "enum": [
+              "free",
+              "professional",
+              "team",
+              "enterprise"
+            ],
+            "title": "Effective Plan"
+          },
+          "plan_source": {
+            "type": "string",
+            "enum": [
+              "user",
+              "team",
+              "free"
+            ],
+            "title": "Plan Source"
+          },
+          "active_team_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Team Id"
+          },
+          "features": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Features"
+          },
+          "quotas": {
+            "items": {
+              "$ref": "#/components/schemas/UsageQuotaResponse"
+            },
+            "type": "array",
+            "title": "Quotas"
+          },
+          "billing_mode": {
+            "type": "string",
+            "const": "local-development",
+            "title": "Billing Mode",
+            "default": "local-development"
+          },
+          "commercial_ready": {
+            "type": "boolean",
+            "title": "Commercial Ready",
+            "default": false
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_plan",
+          "team_plan",
+          "effective_plan",
+          "plan_source",
+          "active_team_id",
+          "features",
+          "quotas"
+        ],
+        "title": "EntitlementResponse"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "HealthResponse": {
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "ok",
+            "title": "Status",
+            "default": "ok"
+          },
+          "service": {
+            "type": "string",
+            "title": "Service"
+          },
+          "version": {
+            "type": "string",
+            "title": "Version"
+          },
+          "environment": {
+            "type": "string",
+            "title": "Environment"
+          }
+        },
+        "type": "object",
+        "required": [
+          "service",
+          "version",
+          "environment"
+        ],
+        "title": "HealthResponse"
+      },
+      "IdentityResponse": {
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/UserResponse"
+          },
+          "teams": {
+            "items": {
+              "$ref": "#/components/schemas/TeamResponse"
+            },
+            "type": "array",
+            "title": "Teams"
+          },
+          "active_team_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Active Team Id"
+          },
+          "permissions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Permissions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user",
+          "teams",
+          "active_team_id",
+          "permissions"
+        ],
+        "title": "IdentityResponse"
+      },
+      "InvitationAcceptRequest": {
+        "properties": {
+          "token": {
+            "type": "string",
+            "maxLength": 300,
+            "minLength": 20,
+            "title": "Token"
+          }
+        },
+        "type": "object",
+        "required": [
+          "token"
+        ],
+        "title": "InvitationAcceptRequest"
+      },
+      "LoginRequest": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "maxLength": 254,
+            "minLength": 5,
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 1,
+            "title": "Password"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "title": "LoginRequest"
+      },
+      "NormalizedDrySolidsInputs": {
+        "properties": {
+          "slurry_volume_flow_m3_h": {
+            "type": "number",
+            "minimum": 0.0,
+            "title": "Slurry Volume Flow M3 H"
+          },
+          "slurry_density_t_m3": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Slurry Density T M3"
+          },
+          "solids_mass_fraction": {
+            "type": "number",
+            "maximum": 1.0,
+            "minimum": 0.0,
+            "title": "Solids Mass Fraction"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slurry_volume_flow_m3_h",
+          "slurry_density_t_m3",
+          "solids_mass_fraction"
+        ],
+        "title": "NormalizedDrySolidsInputs"
+      },
+      "NormalizedSlurryDensityInputs": {
+        "properties": {
+          "mode": {
+            "type": "string",
+            "enum": [
+              "from_mass_concentration",
+              "from_slurry_density",
+              "from_volume_concentration"
+            ],
+            "title": "Mode"
+          },
+          "solids_density_t_m3": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Solids Density T M3"
+          },
+          "liquid_density_t_m3": {
+            "type": "number",
+            "exclusiveMinimum": 0.0,
+            "title": "Liquid Density T M3"
+          },
+          "known_value": {
+            "type": "number",
+            "title": "Known Value"
+          },
+          "known_quantity": {
+            "type": "string",
+            "enum": [
+              "mass_fraction",
+              "slurry_density",
+              "volume_fraction"
+            ],
+            "title": "Known Quantity"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mode",
+          "solids_density_t_m3",
+          "liquid_density_t_m3",
+          "known_value",
+          "known_quantity"
+        ],
+        "title": "NormalizedSlurryDensityInputs"
+      },
+      "PlanQuotaResponse": {
+        "properties": {
+          "metric": {
+            "type": "string",
+            "title": "Metric"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "limit": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Limit"
+          },
+          "period": {
+            "type": "string",
+            "enum": [
+              "monthly",
+              "total"
+            ],
+            "title": "Period"
+          }
+        },
+        "type": "object",
+        "required": [
+          "metric",
+          "label",
+          "limit",
+          "period"
+        ],
+        "title": "PlanQuotaResponse"
+      },
+      "PlanResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "free",
+              "professional",
+              "team",
+              "enterprise"
+            ],
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "tagline": {
+            "type": "string",
+            "title": "Tagline"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "monthly_price_fen": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Monthly Price Fen"
+          },
+          "annual_price_fen": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Annual Price Fen"
+          },
+          "currency": {
+            "type": "string",
+            "const": "CNY",
+            "title": "Currency",
+            "default": "CNY"
+          },
+          "recommended": {
+            "type": "boolean",
+            "title": "Recommended",
+            "default": false
+          },
+          "price_note": {
+            "type": "string",
+            "title": "Price Note"
+          },
+          "features": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Features"
+          },
+          "quotas": {
+            "items": {
+              "$ref": "#/components/schemas/PlanQuotaResponse"
+            },
+            "type": "array",
+            "title": "Quotas"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "tagline",
+          "description",
+          "monthly_price_fen",
+          "annual_price_fen",
+          "price_note",
+          "features",
+          "quotas"
+        ],
+        "title": "PlanResponse"
+      },
+      "ProjectCreate": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name"
+          },
+          "code": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 60
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Code"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 1000,
+            "title": "Description",
+            "default": ""
+          },
+          "visibility": {
+            "type": "string",
+            "enum": [
+              "team",
+              "private"
+            ],
+            "title": "Visibility",
+            "default": "team"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "ProjectCreate"
+      },
+      "ProjectListResponse": {
+        "properties": {
+          "items": {
+            "items": {
+              "$ref": "#/components/schemas/ProjectResponse"
+            },
+            "type": "array",
+            "title": "Items"
+          },
+          "total": {
+            "type": "integer",
+            "title": "Total"
+          }
+        },
+        "type": "object",
+        "required": [
+          "items",
+          "total"
+        ],
+        "title": "ProjectListResponse"
+      },
+      "ProjectMemberAdd": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "maxLength": 254,
+            "minLength": 5,
+            "title": "Email"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "manager",
+              "editor",
+              "viewer"
+            ],
+            "title": "Role",
+            "default": "editor"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email"
+        ],
+        "title": "ProjectMemberAdd"
+      },
+      "ProjectMemberResponse": {
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email"
+          },
+          "display_name": {
+            "type": "string",
+            "title": "Display Name"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "owner",
+              "manager",
+              "editor",
+              "viewer"
+            ],
+            "title": "Role"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "suspended"
+            ],
+            "title": "Status"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id",
+          "email",
+          "display_name",
+          "role",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ProjectMemberResponse"
+      },
+      "ProjectMemberRoleUpdate": {
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "manager",
+              "editor",
+              "viewer"
+            ],
+            "title": "Role"
+          }
+        },
+        "type": "object",
+        "required": [
+          "role"
+        ],
+        "title": "ProjectMemberRoleUpdate"
+      },
+      "ProjectResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Code"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "archived"
+            ],
+            "title": "Status"
+          },
+          "team_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Team Id"
+          },
+          "owner_user_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Owner User Id"
+          },
+          "created_by": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created By"
+          },
+          "visibility": {
+            "type": "string",
+            "enum": [
+              "team",
+              "private"
+            ],
+            "title": "Visibility",
+            "default": "team"
+          },
+          "my_role": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "owner",
+                  "manager",
+                  "editor",
+                  "viewer"
+                ]
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "My Role"
+          },
+          "record_count": {
+            "type": "integer",
+            "title": "Record Count",
+            "default": 0
+          },
+          "member_count": {
+            "type": "integer",
+            "title": "Member Count",
+            "default": 0
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "code",
+          "description",
+          "status",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ProjectResponse"
+      },
+      "RegisterRequest": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "maxLength": 254,
+            "minLength": 5,
+            "title": "Email"
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 128,
+            "minLength": 10,
+            "title": "Password"
+          },
+          "display_name": {
+            "type": "string",
+            "maxLength": 80,
+            "minLength": 1,
+            "title": "Display Name"
+          },
+          "team_name": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 120
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Team Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email",
+          "password",
+          "display_name"
+        ],
+        "title": "RegisterRequest"
+      },
+      "ResultValue": {
+        "properties": {
+          "value": {
+            "type": "number",
+            "title": "Value"
+          },
+          "unit": {
+            "type": "string",
+            "title": "Unit"
+          },
+          "precision": {
+            "type": "integer",
+            "title": "Precision"
+          }
+        },
+        "type": "object",
+        "required": [
+          "value",
+          "unit",
+          "precision"
+        ],
+        "title": "ResultValue"
+      },
+      "ReusableOutput": {
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "Key"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "value": {
+            "type": "number",
+            "title": "Value"
+          },
+          "unit": {
+            "type": "string",
+            "title": "Unit"
+          },
+          "quantity": {
+            "type": "string",
+            "title": "Quantity"
+          },
+          "mappings": {
+            "items": {
+              "$ref": "#/components/schemas/ReuseMapping"
+            },
+            "type": "array",
+            "title": "Mappings"
+          }
+        },
+        "type": "object",
+        "required": [
+          "key",
+          "label",
+          "value",
+          "unit",
+          "quantity"
+        ],
+        "title": "ReusableOutput"
+      },
+      "ReuseMapping": {
+        "properties": {
+          "target_tool_id": {
+            "type": "string",
+            "title": "Target Tool Id"
+          },
+          "target_field": {
+            "type": "string",
+            "title": "Target Field"
+          },
+          "target_unit": {
+            "type": "string",
+            "title": "Target Unit"
+          },
+          "target_mode": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Mode"
+          }
+        },
+        "type": "object",
+        "required": [
+          "target_tool_id",
+          "target_field",
+          "target_unit"
+        ],
+        "title": "ReuseMapping"
+      },
+      "ReusePackageResponse": {
+        "properties": {
+          "record_id": {
+            "type": "string",
+            "title": "Record Id"
+          },
+          "source_tool_id": {
+            "type": "string",
+            "title": "Source Tool Id"
+          },
+          "source_tool_name": {
+            "type": "string",
+            "title": "Source Tool Name"
+          },
+          "target_tool_id": {
+            "type": "string",
+            "title": "Target Tool Id"
+          },
+          "values": {
+            "items": {
+              "$ref": "#/components/schemas/ReuseValue"
+            },
+            "type": "array",
+            "title": "Values"
+          },
+          "warnings": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Warnings"
+          }
+        },
+        "type": "object",
+        "required": [
+          "record_id",
+          "source_tool_id",
+          "source_tool_name",
+          "target_tool_id",
+          "values"
+        ],
+        "title": "ReusePackageResponse"
+      },
+      "ReuseValue": {
+        "properties": {
+          "source_key": {
+            "type": "string",
+            "title": "Source Key"
+          },
+          "source_label": {
+            "type": "string",
+            "title": "Source Label"
+          },
+          "target_field": {
+            "type": "string",
+            "title": "Target Field"
+          },
+          "value": {
+            "type": "number",
+            "title": "Value"
+          },
+          "unit": {
+            "type": "string",
+            "title": "Unit"
+          },
+          "target_mode": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Target Mode"
+          }
+        },
+        "type": "object",
+        "required": [
+          "source_key",
+          "source_label",
+          "target_field",
+          "value",
+          "unit"
+        ],
+        "title": "ReuseValue"
+      },
+      "SessionSummary": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "expires_at": {
+            "type": "string",
+            "title": "Expires At"
+          },
+          "idle_expires_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Idle Expires At"
+          },
+          "last_seen_at": {
+            "type": "string",
+            "title": "Last Seen At"
+          },
+          "current": {
+            "type": "boolean",
+            "title": "Current",
+            "default": false
+          },
+          "user_agent": {
+            "type": "string",
+            "title": "User Agent",
+            "default": ""
+          },
+          "ip_address": {
+            "type": "string",
+            "title": "Ip Address",
+            "default": ""
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "created_at",
+          "expires_at",
+          "last_seen_at"
+        ],
+        "title": "SessionSummary"
+      },
+      "SlurryDensityCalculateRequest": {
+        "properties": {
+          "tool_id": {
+            "type": "string",
+            "const": "slurry-density-conversion",
+            "title": "Tool Id",
+            "default": "slurry-density-conversion"
+          },
+          "formula_version": {
+            "type": "string",
+            "const": "1.0.0",
+            "title": "Formula Version",
+            "default": "1.0.0"
+          },
+          "mode": {
+            "type": "string",
+            "enum": [
+              "from_mass_concentration",
+              "from_slurry_density",
+              "from_volume_concentration"
+            ],
+            "title": "Mode"
+          },
+          "inputs": {
+            "$ref": "#/components/schemas/SlurryDensityInputs"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mode",
+          "inputs"
+        ],
+        "title": "SlurryDensityCalculateRequest"
+      },
+      "SlurryDensityCalculateResponse": {
+        "properties": {
+          "request_id": {
+            "type": "string",
+            "title": "Request Id"
+          },
+          "tool_id": {
+            "type": "string",
+            "const": "slurry-density-conversion",
+            "title": "Tool Id",
+            "default": "slurry-density-conversion"
+          },
+          "formula_version": {
+            "type": "string",
+            "const": "1.0.0",
+            "title": "Formula Version",
+            "default": "1.0.0"
+          },
+          "computed_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Computed At"
+          },
+          "validity": {
+            "type": "string",
+            "enum": [
+              "VALID",
+              "CAUTION",
+              "INVALID"
+            ],
+            "title": "Validity"
+          },
+          "summary": {
+            "type": "string",
+            "title": "Summary"
+          },
+          "normalized_inputs": {
+            "$ref": "#/components/schemas/NormalizedSlurryDensityInputs"
+          },
+          "results": {
+            "$ref": "#/components/schemas/SlurryDensityResults"
+          },
+          "steps": {
+            "items": {
+              "$ref": "#/components/schemas/CalculationStep"
+            },
+            "type": "array",
+            "title": "Steps"
+          },
+          "warnings": {
+            "items": {
+              "$ref": "#/components/schemas/EngineeringWarning"
+            },
+            "type": "array",
+            "title": "Warnings"
+          },
+          "assumptions": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array",
+            "title": "Assumptions"
+          }
+        },
+        "type": "object",
+        "required": [
+          "request_id",
+          "computed_at",
+          "validity",
+          "summary",
+          "normalized_inputs",
+          "results",
+          "steps",
+          "warnings",
+          "assumptions"
+        ],
+        "title": "SlurryDensityCalculateResponse"
+      },
+      "SlurryDensityInputs": {
+        "properties": {
+          "solids_density": {
+            "$ref": "#/components/schemas/UnitValue"
+          },
+          "liquid_density": {
+            "$ref": "#/components/schemas/UnitValue"
+          },
+          "known_value": {
+            "$ref": "#/components/schemas/UnitValue"
+          }
+        },
+        "type": "object",
+        "required": [
+          "solids_density",
+          "liquid_density",
+          "known_value"
+        ],
+        "title": "SlurryDensityInputs"
+      },
+      "SlurryDensityResults": {
+        "properties": {
+          "slurry_density": {
+            "$ref": "#/components/schemas/ResultValue"
+          },
+          "solids_mass_fraction": {
+            "$ref": "#/components/schemas/ResultValue"
+          },
+          "solids_volume_fraction": {
+            "$ref": "#/components/schemas/ResultValue"
+          },
+          "liquid_mass_fraction": {
+            "$ref": "#/components/schemas/ResultValue"
+          },
+          "liquid_volume_fraction": {
+            "$ref": "#/components/schemas/ResultValue"
+          }
+        },
+        "type": "object",
+        "required": [
+          "slurry_density",
+          "solids_mass_fraction",
+          "solids_volume_fraction",
+          "liquid_mass_fraction",
+          "liquid_volume_fraction"
+        ],
+        "title": "SlurryDensityResults"
+      },
+      "SubscriptionResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "subject_type": {
+            "type": "string",
+            "enum": [
+              "user",
+              "team"
+            ],
+            "title": "Subject Type"
+          },
+          "subject_id": {
+            "type": "string",
+            "title": "Subject Id"
+          },
+          "plan": {
+            "type": "string",
+            "enum": [
+              "free",
+              "professional",
+              "team",
+              "enterprise"
+            ],
+            "title": "Plan"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "active",
+              "cancelled",
+              "expired"
+            ],
+            "title": "Status"
+          },
+          "billing_cycle": {
+            "type": "string",
+            "enum": [
+              "monthly",
+              "annual"
+            ],
+            "title": "Billing Cycle"
+          },
+          "starts_at": {
+            "type": "string",
+            "title": "Starts At"
+          },
+          "ends_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Ends At"
+          },
+          "auto_renew": {
+            "type": "boolean",
+            "title": "Auto Renew"
+          },
+          "provider": {
+            "type": "string",
+            "title": "Provider"
+          },
+          "external_reference": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "External Reference"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "subject_type",
+          "subject_id",
+          "plan",
+          "status",
+          "billing_cycle",
+          "starts_at",
+          "ends_at",
+          "auto_renew",
+          "provider",
+          "external_reference",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "SubscriptionResponse"
+      },
+      "TeamCreate": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 120,
+            "minLength": 1,
+            "title": "Name"
+          }
+        },
+        "type": "object",
+        "required": [
+          "name"
+        ],
+        "title": "TeamCreate"
+      },
+      "TeamInvitationCreate": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "maxLength": 254,
+            "minLength": 5,
+            "title": "Email"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "owner",
+              "admin",
+              "engineer",
+              "viewer"
+            ],
+            "title": "Role",
+            "default": "engineer"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email"
+        ],
+        "title": "TeamInvitationCreate"
+      },
+      "TeamInvitationResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "team_id": {
+            "type": "string",
+            "title": "Team Id"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "owner",
+              "admin",
+              "engineer",
+              "viewer"
+            ],
+            "title": "Role"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "accepted",
+              "revoked",
+              "expired"
+            ],
+            "title": "Status"
+          },
+          "expires_at": {
+            "type": "string",
+            "title": "Expires At"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "accept_token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Accept Token"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "team_id",
+          "email",
+          "role",
+          "status",
+          "expires_at",
+          "created_at"
+        ],
+        "title": "TeamInvitationResponse"
+      },
+      "TeamMemberAdd": {
+        "properties": {
+          "email": {
+            "type": "string",
+            "maxLength": 254,
+            "minLength": 5,
+            "title": "Email"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "owner",
+              "admin",
+              "engineer",
+              "viewer"
+            ],
+            "title": "Role",
+            "default": "engineer"
+          }
+        },
+        "type": "object",
+        "required": [
+          "email"
+        ],
+        "title": "TeamMemberAdd"
+      },
+      "TeamMemberResponse": {
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email"
+          },
+          "display_name": {
+            "type": "string",
+            "title": "Display Name"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "owner",
+              "admin",
+              "engineer",
+              "viewer"
+            ],
+            "title": "Role"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "suspended"
+            ],
+            "title": "Status"
+          },
+          "joined_at": {
+            "type": "string",
+            "title": "Joined At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id",
+          "email",
+          "display_name",
+          "role",
+          "status",
+          "joined_at"
+        ],
+        "title": "TeamMemberResponse"
+      },
+      "TeamMemberRoleUpdate": {
+        "properties": {
+          "role": {
+            "type": "string",
+            "enum": [
+              "owner",
+              "admin",
+              "engineer",
+              "viewer"
+            ],
+            "title": "Role"
+          }
+        },
+        "type": "object",
+        "required": [
+          "role"
+        ],
+        "title": "TeamMemberRoleUpdate"
+      },
+      "TeamResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "slug": {
+            "type": "string",
+            "title": "Slug"
+          },
+          "plan": {
+            "type": "string",
+            "enum": [
+              "free",
+              "professional",
+              "team",
+              "enterprise"
+            ],
+            "title": "Plan"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "archived"
+            ],
+            "title": "Status"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "owner",
+              "admin",
+              "engineer",
+              "viewer"
+            ],
+            "title": "Role"
+          },
+          "member_count": {
+            "type": "integer",
+            "title": "Member Count",
+            "default": 0
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "updated_at": {
+            "type": "string",
+            "title": "Updated At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "slug",
+          "plan",
+          "status",
+          "role",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "TeamResponse"
+      },
+      "UnitValue": {
+        "properties": {
+          "value": {
+            "type": "number",
+            "title": "Value"
+          },
+          "unit": {
+            "type": "string",
+            "title": "Unit"
+          }
+        },
+        "type": "object",
+        "required": [
+          "value",
+          "unit"
+        ],
+        "title": "UnitValue"
+      },
+      "UsageQuotaResponse": {
+        "properties": {
+          "metric": {
+            "type": "string",
+            "title": "Metric"
+          },
+          "label": {
+            "type": "string",
+            "title": "Label"
+          },
+          "period": {
+            "type": "string",
+            "enum": [
+              "monthly",
+              "total"
+            ],
+            "title": "Period"
+          },
+          "used": {
+            "type": "integer",
+            "title": "Used"
+          },
+          "limit": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Limit"
+          },
+          "remaining": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Remaining"
+          },
+          "percentage": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Percentage"
+          },
+          "period_start": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Period Start"
+          },
+          "period_end": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Period End"
+          }
+        },
+        "type": "object",
+        "required": [
+          "metric",
+          "label",
+          "period",
+          "used",
+          "limit",
+          "remaining",
+          "percentage"
+        ],
+        "title": "UsageQuotaResponse"
+      },
+      "UserResponse": {
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Id"
+          },
+          "email": {
+            "type": "string",
+            "title": "Email"
+          },
+          "display_name": {
+            "type": "string",
+            "title": "Display Name"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "active",
+              "disabled"
+            ],
+            "title": "Status"
+          },
+          "plan": {
+            "type": "string",
+            "enum": [
+              "free",
+              "professional",
+              "team",
+              "enterprise"
+            ],
+            "title": "Plan"
+          },
+          "created_at": {
+            "type": "string",
+            "title": "Created At"
+          },
+          "last_login_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Login At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "id",
+          "email",
+          "display_name",
+          "status",
+          "plan",
+          "created_at"
+        ],
+        "title": "UserResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "ctx": {
+            "type": "object",
+            "title": "Context"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    },
+    "securitySchemes": {
+      "HTTPBearer": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

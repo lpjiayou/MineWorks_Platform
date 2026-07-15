@@ -1,0 +1,50 @@
+{
+  "contract": "mineworks.tools.dry-solids-rate.v1",
+  "endpoint": "POST /api/v1/tools/dry-solids-rate/calculate",
+  "request": {
+    "tool_id": "dry-solids-rate",
+    "formula_version": "1.0.0",
+    "inputs": {
+      "slurry_volume_flow": { "value": 118.37, "unit": "m3/h" },
+      "slurry_density": { "value": 1.38, "unit": "t/m3" },
+      "solids_mass_fraction": { "value": 42, "unit": "%" }
+    }
+  },
+  "response": {
+    "request_id": "req_example",
+    "tool_id": "dry-solids-rate",
+    "formula_version": "1.0.0",
+    "computed_at": "ISO-8601 UTC",
+    "validity": "VALID | CAUTION | INVALID",
+    "summary": "中文结果摘要",
+    "normalized_inputs": {
+      "slurry_volume_flow_m3_h": 118.37,
+      "slurry_density_t_m3": 1.38,
+      "solids_mass_fraction": 0.42
+    },
+    "results": {
+      "slurry_mass_flow": { "value": 163.3506, "unit": "t/h", "precision": 2 },
+      "dry_solids_rate": { "value": 68.607252, "unit": "t/h", "precision": 2 },
+      "water_mass_flow": { "value": 94.743348, "unit": "t/h", "precision": 2 }
+    },
+    "steps": [],
+    "warnings": [],
+    "assumptions": []
+  },
+  "error": {
+    "code": "VALIDATION_ERROR | SERVICE_UNAVAILABLE | CALCULATION_FAILED",
+    "message": "用户可理解的中文说明",
+    "details": { "fields": [], "context": {} },
+    "request_id": "req_example"
+  },
+  "unit_rules": {
+    "slurry_volume_flow": ["m3/h", "L/s"],
+    "slurry_density": ["t/m3", "kg/L", "kg/m3"],
+    "solids_mass_fraction": ["%", "fraction"]
+  },
+  "numeric_rules": {
+    "zero_is_valid": true,
+    "null_is_missing": true,
+    "nan_is_invalid": true
+  }
+}

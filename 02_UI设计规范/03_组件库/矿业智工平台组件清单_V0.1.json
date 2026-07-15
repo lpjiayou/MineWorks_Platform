@@ -1,0 +1,1806 @@
+{
+  "meta": {
+    "project": "矿业智工平台",
+    "designSystem": "MineWorks UI",
+    "version": "0.1.0",
+    "documentVersion": "V0.1",
+    "generatedAt": "2026-07-14",
+    "status": "implementation-planning",
+    "description": "MineWorks UI组件清单、优先级、依赖、Storybook和测试要求。"
+  },
+  "layers": [
+    {
+      "id": "foundation",
+      "labelZh": "设计基础"
+    },
+    {
+      "id": "primitive",
+      "labelZh": "原子组件"
+    },
+    {
+      "id": "component",
+      "labelZh": "通用组件"
+    },
+    {
+      "id": "domain",
+      "labelZh": "矿业领域组件"
+    },
+    {
+      "id": "pattern",
+      "labelZh": "页面模式"
+    },
+    {
+      "id": "advanced",
+      "labelZh": "高级组件"
+    }
+  ],
+  "priorities": {
+    "P0": "首个Next.js版本必须完成",
+    "P1": "首个生产版本随后完成",
+    "P2": "高级工作台阶段实施"
+  },
+  "globalAcceptance": [
+    "TypeScript开启strict",
+    "无隐式any",
+    "设计令牌驱动样式",
+    "浅色和深色Story",
+    "键盘可操作",
+    "可见焦点",
+    "状态不只依赖颜色",
+    "0值和null值测试",
+    "1366×768与390×844响应式检查",
+    "单元测试与Storybook文档完整"
+  ],
+  "components": [
+    {
+      "id": "brand-logo",
+      "name": "BrandLogo",
+      "category": "brand",
+      "layer": "component",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "统一管理横版Logo、主标志和图形标志，并随主题和屏幕宽度切换。",
+      "variants": [
+        "horizontal",
+        "primary",
+        "symbol"
+      ],
+      "dependencies": [],
+      "requiredStories": [
+        "Default",
+        "LightTheme",
+        "DarkTheme",
+        "MobileSymbol"
+      ],
+      "requiredTests": [
+        "render",
+        "themeSwitch",
+        "responsive",
+        "altText"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "button",
+      "name": "Button",
+      "category": "primitives",
+      "layer": "primitive",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "主操作、次操作、危险操作和文字操作的统一按钮。",
+      "variants": [
+        "primary",
+        "secondary",
+        "tertiary",
+        "ghost",
+        "danger",
+        "link"
+      ],
+      "dependencies": [],
+      "requiredStories": [
+        "Variants",
+        "Sizes",
+        "Loading",
+        "Disabled",
+        "Keyboard"
+      ],
+      "requiredTests": [
+        "click",
+        "loadingLock",
+        "disabled",
+        "keyboard",
+        "aria"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "icon-button",
+      "name": "IconButton",
+      "category": "primitives",
+      "layer": "primitive",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "收藏、关闭、菜单、主题切换和更多操作。",
+      "variants": [
+        "default",
+        "selected",
+        "danger"
+      ],
+      "dependencies": [
+        "Tooltip"
+      ],
+      "requiredStories": [
+        "Default",
+        "Selected",
+        "WithTooltip",
+        "Disabled"
+      ],
+      "requiredTests": [
+        "click",
+        "ariaLabel",
+        "touchTarget",
+        "keyboard"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "text-input",
+      "name": "TextInput",
+      "category": "forms",
+      "layer": "primitive",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "文本、项目名称、标签和普通字段输入。",
+      "variants": [
+        "default",
+        "error",
+        "warning",
+        "readonly",
+        "disabled"
+      ],
+      "dependencies": [
+        "Field"
+      ],
+      "requiredStories": [
+        "Default",
+        "Filled",
+        "Error",
+        "Warning",
+        "Disabled"
+      ],
+      "requiredTests": [
+        "valueChange",
+        "focus",
+        "errorAssociation",
+        "keyboard"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "number-input",
+      "name": "NumberInput",
+      "category": "forms",
+      "layer": "primitive",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "统一数值输入，必须区分0、空值和非法值。",
+      "variants": [
+        "default",
+        "error",
+        "warning",
+        "scientific"
+      ],
+      "dependencies": [
+        "Field"
+      ],
+      "requiredStories": [
+        "ZeroValue",
+        "NullValue",
+        "Negative",
+        "Precision",
+        "RangeError"
+      ],
+      "requiredTests": [
+        "zeroValue",
+        "nullValue",
+        "range",
+        "precision",
+        "paste"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "unit-input",
+      "name": "UnitInput",
+      "category": "forms",
+      "layer": "domain",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "数值输入与单位选择组合，记录原始值、单位和标准化值。",
+      "variants": [
+        "default",
+        "warning",
+        "error",
+        "readonly"
+      ],
+      "dependencies": [
+        "NumberInput",
+        "Select",
+        "UnitRegistry"
+      ],
+      "requiredStories": [
+        "VolumeFlow",
+        "Density",
+        "Concentration",
+        "Error",
+        "UnitConversion"
+      ],
+      "requiredTests": [
+        "zeroValue",
+        "unitChange",
+        "normalize",
+        "error",
+        "keyboard"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "select",
+      "name": "Select",
+      "category": "forms",
+      "layer": "primitive",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "单选、分组、搜索和禁用项。",
+      "variants": [
+        "native",
+        "searchable",
+        "grouped"
+      ],
+      "dependencies": [
+        "Popover"
+      ],
+      "requiredStories": [
+        "Default",
+        "Searchable",
+        "Grouped",
+        "Empty",
+        "Disabled"
+      ],
+      "requiredTests": [
+        "select",
+        "keyboard",
+        "empty",
+        "ariaExpanded"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "checkbox",
+      "name": "Checkbox",
+      "category": "forms",
+      "layer": "primitive",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "多选筛选和独立确认。",
+      "variants": [
+        "checked",
+        "unchecked",
+        "indeterminate",
+        "disabled"
+      ],
+      "dependencies": [],
+      "requiredStories": [
+        "Default",
+        "Indeterminate",
+        "Disabled"
+      ],
+      "requiredTests": [
+        "toggle",
+        "keyboard",
+        "labelAssociation"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "radio-group",
+      "name": "RadioGroup",
+      "category": "forms",
+      "layer": "primitive",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "项目保存位置等互斥选项。",
+      "variants": [
+        "vertical",
+        "horizontal",
+        "card"
+      ],
+      "dependencies": [],
+      "requiredStories": [
+        "Vertical",
+        "Horizontal",
+        "CardOptions"
+      ],
+      "requiredTests": [
+        "selection",
+        "keyboardArrows",
+        "labelAssociation"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "switch",
+      "name": "Switch",
+      "category": "forms",
+      "layer": "primitive",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "即时开关，例如显示仪表、实时计算和主题。",
+      "variants": [
+        "on",
+        "off",
+        "disabled"
+      ],
+      "dependencies": [],
+      "requiredStories": [
+        "Default",
+        "On",
+        "Disabled"
+      ],
+      "requiredTests": [
+        "toggle",
+        "keyboard",
+        "ariaChecked"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "field",
+      "name": "Field",
+      "category": "forms",
+      "layer": "component",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "统一Label、必填、帮助、警告和错误结构。",
+      "variants": [
+        "default",
+        "warning",
+        "error",
+        "readonly"
+      ],
+      "dependencies": [
+        "TextInput"
+      ],
+      "requiredStories": [
+        "Default",
+        "Required",
+        "Warning",
+        "Error"
+      ],
+      "requiredTests": [
+        "errorPriority",
+        "ariaDescribedBy",
+        "required"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "search-input",
+      "name": "SearchInput",
+      "category": "forms",
+      "layer": "component",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "工具、资料、项目和全站搜索，支持清空与快捷键。",
+      "variants": [
+        "default",
+        "loading",
+        "suggestions",
+        "empty"
+      ],
+      "dependencies": [
+        "TextInput",
+        "Popover"
+      ],
+      "requiredStories": [
+        "Default",
+        "CtrlK",
+        "Suggestions",
+        "NoResult"
+      ],
+      "requiredTests": [
+        "search",
+        "clear",
+        "shortcut",
+        "keyboard"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "badge",
+      "name": "Badge",
+      "category": "feedback",
+      "layer": "primitive",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "权益、审核、分类、版本和状态文字标识。",
+      "variants": [
+        "free",
+        "professional",
+        "team",
+        "validated",
+        "warning",
+        "danger",
+        "neutral"
+      ],
+      "dependencies": [],
+      "requiredStories": [
+        "Membership",
+        "ToolStatus",
+        "Validity",
+        "DarkTheme"
+      ],
+      "requiredTests": [
+        "textRequired",
+        "contrast",
+        "render"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "alert",
+      "name": "Alert",
+      "category": "feedback",
+      "layer": "component",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "持续显示信息、成功、警告和错误。",
+      "variants": [
+        "info",
+        "success",
+        "warning",
+        "error"
+      ],
+      "dependencies": [
+        "IconButton"
+      ],
+      "requiredStories": [
+        "Variants",
+        "WithAction",
+        "Dismissible"
+      ],
+      "requiredTests": [
+        "role",
+        "dismiss",
+        "action",
+        "contrast"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "toast",
+      "name": "Toast",
+      "category": "feedback",
+      "layer": "component",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "复制、保存、收藏和导出等短暂反馈。",
+      "variants": [
+        "info",
+        "success",
+        "warning",
+        "error"
+      ],
+      "dependencies": [],
+      "requiredStories": [
+        "Default",
+        "Queue",
+        "LongText"
+      ],
+      "requiredTests": [
+        "ariaLive",
+        "timeout",
+        "queue",
+        "dismiss"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "card",
+      "name": "Card",
+      "category": "data-display",
+      "layer": "component",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "普通、交互、高亮和危险信息卡片。",
+      "variants": [
+        "default",
+        "interactive",
+        "highlighted",
+        "danger"
+      ],
+      "dependencies": [],
+      "requiredStories": [
+        "Variants",
+        "Interactive",
+        "DarkTheme"
+      ],
+      "requiredTests": [
+        "focus",
+        "click",
+        "responsive"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "panel",
+      "name": "Panel",
+      "category": "layout",
+      "layer": "component",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "输入、结果、说明和项目区域的标准容器。",
+      "variants": [
+        "default",
+        "sticky",
+        "scrollable"
+      ],
+      "dependencies": [],
+      "requiredStories": [
+        "Default",
+        "WithHeader",
+        "Sticky",
+        "Compact"
+      ],
+      "requiredTests": [
+        "layout",
+        "scroll",
+        "responsive"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "tabs",
+      "name": "Tabs",
+      "category": "navigation",
+      "layer": "component",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "计算过程、警告、JSON、原理和版本切换。",
+      "variants": [
+        "line",
+        "card",
+        "segmented"
+      ],
+      "dependencies": [],
+      "requiredStories": [
+        "Line",
+        "Card",
+        "Segmented",
+        "Scrollable"
+      ],
+      "requiredTests": [
+        "keyboardArrows",
+        "ariaSelected",
+        "focusManagement"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "accordion",
+      "name": "Accordion",
+      "category": "navigation",
+      "layer": "component",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "高级参数、适用范围、版本记录和FAQ。",
+      "variants": [
+        "single",
+        "multiple"
+      ],
+      "dependencies": [],
+      "requiredStories": [
+        "Default",
+        "Multiple",
+        "Disabled"
+      ],
+      "requiredTests": [
+        "keyboard",
+        "ariaExpanded",
+        "contentAssociation"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "modal",
+      "name": "Modal",
+      "category": "overlays",
+      "layer": "component",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "保存、删除、升级和高风险确认。",
+      "variants": [
+        "default",
+        "confirmation",
+        "danger",
+        "large"
+      ],
+      "dependencies": [
+        "Button",
+        "IconButton"
+      ],
+      "requiredStories": [
+        "Default",
+        "Confirmation",
+        "Danger",
+        "Mobile"
+      ],
+      "requiredTests": [
+        "focusTrap",
+        "escape",
+        "restoreFocus",
+        "ariaModal"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "drawer",
+      "name": "Drawer",
+      "category": "overlays",
+      "layer": "component",
+      "priority": "P1",
+      "implementationStatus": "planned",
+      "targetPhase": "P1",
+      "owner": "前端/UI",
+      "description": "移动端筛选、设备详情、公式说明和AI上下文。",
+      "variants": [
+        "left",
+        "right",
+        "bottom"
+      ],
+      "dependencies": [
+        "Button",
+        "IconButton"
+      ],
+      "requiredStories": [
+        "Right",
+        "BottomMobile",
+        "LongContent"
+      ],
+      "requiredTests": [
+        "focusTrap",
+        "escape",
+        "scrollLock",
+        "restoreFocus"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "tooltip",
+      "name": "Tooltip",
+      "category": "overlays",
+      "layer": "primitive",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "图标按钮、缩写和禁用原因的短说明。",
+      "variants": [
+        "top",
+        "right",
+        "bottom",
+        "left"
+      ],
+      "dependencies": [],
+      "requiredStories": [
+        "Positions",
+        "KeyboardFocus",
+        "LongText"
+      ],
+      "requiredTests": [
+        "hover",
+        "focus",
+        "escape",
+        "ariaDescribedBy"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "popover",
+      "name": "Popover",
+      "category": "overlays",
+      "layer": "component",
+      "priority": "P1",
+      "implementationStatus": "planned",
+      "targetPhase": "P1",
+      "owner": "前端/UI",
+      "description": "单位说明、变量说明和图表点详情。",
+      "variants": [
+        "top",
+        "right",
+        "bottom",
+        "left"
+      ],
+      "dependencies": [],
+      "requiredStories": [
+        "Default",
+        "Interactive",
+        "Collision"
+      ],
+      "requiredTests": [
+        "focus",
+        "outsideClick",
+        "escape"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "dropdown-menu",
+      "name": "DropdownMenu",
+      "category": "overlays",
+      "layer": "component",
+      "priority": "P1",
+      "implementationStatus": "planned",
+      "targetPhase": "P1",
+      "owner": "前端/UI",
+      "description": "工具操作、导出菜单和更多操作。",
+      "variants": [
+        "default",
+        "checkbox",
+        "radio"
+      ],
+      "dependencies": [
+        "Popover"
+      ],
+      "requiredStories": [
+        "Default",
+        "CheckboxItems",
+        "DangerItem"
+      ],
+      "requiredTests": [
+        "keyboard",
+        "escape",
+        "selection"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "tool-card",
+      "name": "ToolCard",
+      "category": "tools",
+      "layer": "domain",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "工具中心核心卡片，统一用途、分类、权益、审核和操作。",
+      "variants": [
+        "card",
+        "compact",
+        "list",
+        "disabled"
+      ],
+      "dependencies": [
+        "Badge",
+        "IconButton",
+        "Card"
+      ],
+      "requiredStories": [
+        "Free",
+        "Professional",
+        "Team",
+        "Reviewing",
+        "Disabled",
+        "ListView"
+      ],
+      "requiredTests": [
+        "favorite",
+        "open",
+        "keyboard",
+        "statusText",
+        "responsive"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "result-metric-card",
+      "name": "ResultMetricCard",
+      "category": "tools",
+      "layer": "domain",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "核心工程结果，统一数值、单位、精度和状态。",
+      "variants": [
+        "default",
+        "primary",
+        "warning",
+        "invalid"
+      ],
+      "dependencies": [
+        "EngineeringValue",
+        "IconButton"
+      ],
+      "requiredStories": [
+        "Normal",
+        "Zero",
+        "Null",
+        "Warning",
+        "Invalid"
+      ],
+      "requiredTests": [
+        "zeroValue",
+        "nullDisplay",
+        "precision",
+        "copy"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "engineering-value",
+      "name": "EngineeringValue",
+      "category": "data-display",
+      "layer": "domain",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "统一工程数值、单位、精度、科学计数法和无数据。",
+      "variants": [
+        "normal",
+        "percentage",
+        "scientific",
+        "belowLimit",
+        "missing"
+      ],
+      "dependencies": [],
+      "requiredStories": [
+        "Flow",
+        "Density",
+        "Percentage",
+        "Zero",
+        "Null",
+        "Scientific"
+      ],
+      "requiredTests": [
+        "format",
+        "zero",
+        "null",
+        "nan",
+        "locale"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "validity-badge",
+      "name": "ValidityBadge",
+      "category": "feedback",
+      "layer": "domain",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "VALID、CAUTION、INCONSISTENT、INVALID、STALE等数据状态。",
+      "variants": [
+        "notCalculated",
+        "valid",
+        "caution",
+        "inconsistent",
+        "invalid",
+        "stale",
+        "missing"
+      ],
+      "dependencies": [
+        "Badge"
+      ],
+      "requiredStories": [
+        "AllStates",
+        "WithDescription",
+        "DarkTheme"
+      ],
+      "requiredTests": [
+        "translation",
+        "textRequired",
+        "contrast"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "formula-block",
+      "name": "FormulaBlock",
+      "category": "tools",
+      "layer": "domain",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "公式、单位换算和代入过程的安全文本展示。",
+      "variants": [
+        "plain",
+        "substitution",
+        "result",
+        "warning"
+      ],
+      "dependencies": [
+        "IconButton"
+      ],
+      "requiredStories": [
+        "Formula",
+        "Substitution",
+        "LongFormula",
+        "Copy"
+      ],
+      "requiredTests": [
+        "safeText",
+        "copy",
+        "horizontalScroll",
+        "screenReaderLabel"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "calculation-steps",
+      "name": "CalculationSteps",
+      "category": "tools",
+      "layer": "domain",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "按步骤显示公式、代入值、中间结果和说明。",
+      "variants": [
+        "expanded",
+        "collapsed",
+        "warning",
+        "error"
+      ],
+      "dependencies": [
+        "FormulaBlock",
+        "EngineeringValue"
+      ],
+      "requiredStories": [
+        "DrySolidsExample",
+        "Collapsed",
+        "WarningStep",
+        "ErrorStep"
+      ],
+      "requiredTests": [
+        "stepOrder",
+        "keyboard",
+        "renderResult"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "empty-state",
+      "name": "EmptyState",
+      "category": "feedback",
+      "layer": "component",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "无工具、无项目、未计算和无搜索结果。",
+      "variants": [
+        "default",
+        "search",
+        "notCalculated",
+        "noPermission"
+      ],
+      "dependencies": [
+        "Button"
+      ],
+      "requiredStories": [
+        "NotCalculated",
+        "NoSearchResults",
+        "NoProjects"
+      ],
+      "requiredTests": [
+        "action",
+        "heading",
+        "description"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "loading-skeleton",
+      "name": "LoadingSkeleton",
+      "category": "feedback",
+      "layer": "component",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "卡片、表格、结果和页面加载占位。",
+      "variants": [
+        "text",
+        "card",
+        "table",
+        "metric",
+        "page"
+      ],
+      "dependencies": [],
+      "requiredStories": [
+        "Text",
+        "ToolCard",
+        "ResultCard",
+        "Table"
+      ],
+      "requiredTests": [
+        "reducedMotion",
+        "layoutStability"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "error-state",
+      "name": "ErrorState",
+      "category": "feedback",
+      "layer": "component",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "持续显示服务错误、重试、修复建议和request_id。",
+      "variants": [
+        "calculation",
+        "network",
+        "permission",
+        "notFound"
+      ],
+      "dependencies": [
+        "Button",
+        "Alert"
+      ],
+      "requiredStories": [
+        "CalculationFailed",
+        "ServiceUnavailable",
+        "WithRequestId"
+      ],
+      "requiredTests": [
+        "retry",
+        "requestId",
+        "heading",
+        "ariaLive"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "permission-gate",
+      "name": "PermissionGate",
+      "category": "permissions",
+      "layer": "domain",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "免费、专业、团队和企业权限的预览、阻断或隐藏。",
+      "variants": [
+        "block",
+        "preview",
+        "hide"
+      ],
+      "dependencies": [
+        "Badge",
+        "Button",
+        "Card"
+      ],
+      "requiredStories": [
+        "ProfessionalPreview",
+        "TeamBlocked",
+        "FreeAlternative"
+      ],
+      "requiredTests": [
+        "fallback",
+        "featureCode",
+        "serverRecheck",
+        "accessibility"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "project-picker",
+      "name": "ProjectPicker",
+      "category": "projects",
+      "layer": "domain",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "选择当前项目、最近项目、新建项目或独立记录。",
+      "variants": [
+        "modal",
+        "drawer",
+        "inline"
+      ],
+      "dependencies": [
+        "Modal",
+        "SearchInput",
+        "RadioGroup"
+      ],
+      "requiredStories": [
+        "RecentProjects",
+        "Search",
+        "CreateProject",
+        "Guest"
+      ],
+      "requiredTests": [
+        "selection",
+        "search",
+        "authRequired",
+        "preserveInput"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "export-menu",
+      "name": "ExportMenu",
+      "category": "tools",
+      "layer": "domain",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "复制、Markdown、PNG、PDF、Excel和Word导出入口。",
+      "variants": [
+        "free",
+        "professional",
+        "enterprise"
+      ],
+      "dependencies": [
+        "DropdownMenu",
+        "PermissionGate",
+        "Toast"
+      ],
+      "requiredStories": [
+        "FreeFormats",
+        "ProfessionalFormats",
+        "Exporting",
+        "Failed"
+      ],
+      "requiredTests": [
+        "permission",
+        "loading",
+        "download",
+        "error"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "save-status",
+      "name": "SaveStatus",
+      "category": "projects",
+      "layer": "domain",
+      "priority": "P1",
+      "implementationStatus": "planned",
+      "targetPhase": "P1",
+      "owner": "前端/UI",
+      "description": "未保存、保存中、已保存、失败、脏数据和离线草稿。",
+      "variants": [
+        "unsaved",
+        "dirty",
+        "saving",
+        "saved",
+        "failed",
+        "offlineDraft"
+      ],
+      "dependencies": [
+        "Badge"
+      ],
+      "requiredStories": [
+        "AllStates",
+        "Compact",
+        "WorkspaceHeader"
+      ],
+      "requiredTests": [
+        "stateTranslation",
+        "ariaLive",
+        "timestamp"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "theme-toggle",
+      "name": "ThemeToggle",
+      "category": "theme",
+      "layer": "component",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "浅色、深色和跟随系统切换。",
+      "variants": [
+        "icon",
+        "segmented",
+        "menu"
+      ],
+      "dependencies": [
+        "IconButton"
+      ],
+      "requiredStories": [
+        "Light",
+        "Dark",
+        "System"
+      ],
+      "requiredTests": [
+        "persist",
+        "systemPreference",
+        "noLayoutShift",
+        "aria"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "breadcrumb",
+      "name": "Breadcrumb",
+      "category": "navigation",
+      "layer": "component",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "页面路径和结构化数据。",
+      "variants": [
+        "default",
+        "collapsedMobile"
+      ],
+      "dependencies": [],
+      "requiredStories": [
+        "Default",
+        "LongPath",
+        "MobileCollapsed"
+      ],
+      "requiredTests": [
+        "currentPage",
+        "keyboard",
+        "structuredData"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "public-header",
+      "name": "PublicHeader",
+      "category": "layout",
+      "layer": "pattern",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "首页、工具中心、知识库和企业服务的公共导航。",
+      "variants": [
+        "desktop",
+        "tablet",
+        "mobile"
+      ],
+      "dependencies": [
+        "BrandLogo",
+        "Button",
+        "ThemeToggle"
+      ],
+      "requiredStories": [
+        "Desktop",
+        "Mobile",
+        "LoggedIn",
+        "Guest"
+      ],
+      "requiredTests": [
+        "navigation",
+        "responsive",
+        "skipLink",
+        "focus"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "workspace-header",
+      "name": "WorkspaceHeader",
+      "category": "layout",
+      "layer": "pattern",
+      "priority": "P1",
+      "implementationStatus": "planned",
+      "targetPhase": "P1",
+      "owner": "前端/UI",
+      "description": "项目、动态工艺和高级分析的紧凑工作区顶部。",
+      "variants": [
+        "desktop",
+        "compact"
+      ],
+      "dependencies": [
+        "BrandLogo",
+        "SaveStatus",
+        "Button"
+      ],
+      "requiredStories": [
+        "ProjectOpen",
+        "Dirty",
+        "Saving",
+        "Offline"
+      ],
+      "requiredTests": [
+        "projectContext",
+        "saveState",
+        "responsive"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "filter-bar",
+      "name": "FilterBar",
+      "category": "navigation",
+      "layer": "pattern",
+      "priority": "P0",
+      "implementationStatus": "planned",
+      "targetPhase": "P0",
+      "owner": "前端/UI",
+      "description": "搜索、多选筛选、排序、视图切换和URL状态。",
+      "variants": [
+        "desktop",
+        "mobileDrawer"
+      ],
+      "dependencies": [
+        "SearchInput",
+        "Select",
+        "Checkbox",
+        "Drawer"
+      ],
+      "requiredStories": [
+        "ToolCenter",
+        "SelectedFilters",
+        "Mobile",
+        "EmptyResult"
+      ],
+      "requiredTests": [
+        "urlState",
+        "clear",
+        "keyboard",
+        "responsive"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "table",
+      "name": "Table",
+      "category": "data-display",
+      "layer": "component",
+      "priority": "P1",
+      "implementationStatus": "planned",
+      "targetPhase": "P1",
+      "owner": "前端/UI",
+      "description": "工具列表、计算历史、项目和版本记录。",
+      "variants": [
+        "default",
+        "compact",
+        "selectable",
+        "stickyHeader"
+      ],
+      "dependencies": [
+        "Checkbox",
+        "Badge"
+      ],
+      "requiredStories": [
+        "EngineeringData",
+        "Empty",
+        "Loading",
+        "Selectable"
+      ],
+      "requiredTests": [
+        "sorting",
+        "keyboard",
+        "numericAlign",
+        "empty"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "pagination",
+      "name": "Pagination",
+      "category": "navigation",
+      "layer": "component",
+      "priority": "P1",
+      "implementationStatus": "planned",
+      "targetPhase": "P1",
+      "owner": "前端/UI",
+      "description": "页码、上一页、下一页和每页数量。",
+      "variants": [
+        "full",
+        "compact"
+      ],
+      "dependencies": [
+        "Button",
+        "Select"
+      ],
+      "requiredStories": [
+        "Default",
+        "Compact",
+        "FirstPage",
+        "LastPage"
+      ],
+      "requiredTests": [
+        "keyboard",
+        "ariaCurrent",
+        "disabled"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "chart-frame",
+      "name": "ChartFrame",
+      "category": "charts",
+      "layer": "domain",
+      "priority": "P1",
+      "implementationStatus": "planned",
+      "targetPhase": "P1",
+      "owner": "前端/UI",
+      "description": "统一图表标题、图例、工具栏、空状态、单位和数据质量。",
+      "variants": [
+        "trend",
+        "bar",
+        "scatter",
+        "distribution"
+      ],
+      "dependencies": [
+        "EmptyState",
+        "LoadingSkeleton",
+        "ErrorState"
+      ],
+      "requiredStories": [
+        "Trend",
+        "Empty",
+        "Loading",
+        "StaleData",
+        "DarkTheme"
+      ],
+      "requiredTests": [
+        "legend",
+        "unit",
+        "export",
+        "empty",
+        "responsive"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "data-grid",
+      "name": "DataGrid",
+      "category": "data-display",
+      "layer": "advanced",
+      "priority": "P2",
+      "implementationStatus": "backlog",
+      "targetPhase": "P2",
+      "owner": "前端/UI",
+      "description": "大型I/O、仪表、设备和多节点平衡数据表。",
+      "variants": [
+        "readonly",
+        "editable",
+        "selectable"
+      ],
+      "dependencies": [
+        "Table",
+        "FilterBar",
+        "Pagination"
+      ],
+      "requiredStories": [
+        "IoList",
+        "InstrumentList",
+        "Editable",
+        "LargeDataset"
+      ],
+      "requiredTests": [
+        "virtualization",
+        "editing",
+        "validation",
+        "export"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "process-canvas",
+      "name": "ProcessCanvas",
+      "category": "process",
+      "layer": "advanced",
+      "priority": "P2",
+      "implementationStatus": "backlog",
+      "targetPhase": "P2",
+      "owner": "前端/UI",
+      "description": "动态工艺流程、设备节点、物流线和控制关系画布。",
+      "variants": [
+        "learning",
+        "engineering",
+        "demo"
+      ],
+      "dependencies": [
+        "ChartFrame",
+        "Drawer",
+        "Badge"
+      ],
+      "requiredStories": [
+        "CrushingRoute",
+        "GrindingRoute",
+        "CILRoute",
+        "MobileFallback"
+      ],
+      "requiredTests": [
+        "zoom",
+        "pan",
+        "selection",
+        "keyboardFallback"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    },
+    {
+      "id": "pid-trend",
+      "name": "PidTrend",
+      "category": "automation",
+      "layer": "advanced",
+      "priority": "P2",
+      "implementationStatus": "backlog",
+      "targetPhase": "P2",
+      "owner": "前端/UI",
+      "description": "PV、SP、MV、报警线和控制状态趋势。",
+      "variants": [
+        "singleLoop",
+        "cascade",
+        "override"
+      ],
+      "dependencies": [
+        "ChartFrame",
+        "EngineeringValue"
+      ],
+      "requiredStories": [
+        "SingleLoop",
+        "Cascade",
+        "Override",
+        "NoData"
+      ],
+      "requiredTests": [
+        "latestPoint",
+        "timeAxis",
+        "legend",
+        "pause",
+        "export"
+      ],
+      "accessibilityRequirements": [
+        "可键盘操作",
+        "可见焦点",
+        "必要ARIA属性"
+      ]
+    }
+  ],
+  "summary": {
+    "total": 48,
+    "P0": 37,
+    "P1": 8,
+    "P2": 3,
+    "planned": 45,
+    "backlog": 3
+  }
+}

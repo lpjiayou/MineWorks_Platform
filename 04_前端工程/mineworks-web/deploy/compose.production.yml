@@ -1,0 +1,118 @@
+name: mineworks
+
+services:
+  postgres:
+    image: postgres:18.4-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgres_password
+    secrets:
+      - postgres_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks: [backend]
+
+  migrate:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    command: ["alembic", "-c", "alembic.ini", "upgrade", "head"]
+    environment: &api_environment
+      MINEWORKS_APP_VERSION: 1.1.0
+      MINEWORKS_ENVIRONMENT: production
+      MINEWORKS_DATABASE_URL_FILE: /run/secrets/database_url
+      MINEWORKS_AUTO_CREATE_SCHEMA: "false"
+      MINEWORKS_PUBLIC_ORIGIN: https://${MINEWORKS_DOMAIN}
+      MINEWORKS_CORS_ORIGINS: https://${MINEWORKS_DOMAIN}
+      MINEWORKS_TRUSTED_HOSTS: ${MINEWORKS_DOMAIN},api,localhost
+      MINEWORKS_COOKIE_SECURE: "true"
+      MINEWORKS_COOKIE_SAMESITE: lax
+      MINEWORKS_ALLOW_BEARER_TOKENS: "false"
+      MINEWORKS_CSRF_ENABLED: "true"
+      MINEWORKS_DOCS_ENABLED: "false"
+      MINEWORKS_FORCE_HTTPS: "false"
+      MINEWORKS_ALLOW_LOCAL_BILLING_SIMULATION: "false"
+      MINEWORKS_ALLOW_SELF_REGISTRATION: ${MINEWORKS_ALLOW_SELF_REGISTRATION:-false}
+    secrets:
+      - database_url
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks: [backend]
+    restart: "no"
+
+  api:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment: *api_environment
+    secrets:
+      - database_url
+    depends_on:
+      postgres:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/v1/ready', timeout=3)"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+    networks: [backend, frontend]
+
+  web:
+    build:
+      context: ..
+      dockerfile: Dockerfile.web
+      args:
+        NEXT_PUBLIC_API_BASE_URL: /api/v1
+        NEXT_PUBLIC_APP_VERSION: 1.1.0
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      HOSTNAME: 0.0.0.0
+      PORT: 3000
+    depends_on:
+      api:
+        condition: service_healthy
+    networks: [frontend]
+
+  nginx:
+    image: nginx:1.29-alpine
+    restart: unless-stopped
+    environment:
+      MINEWORKS_DOMAIN: ${MINEWORKS_DOMAIN}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/default.conf.template:/etc/nginx/templates/default.conf.template:ro
+      - ./certs:/etc/nginx/certs:ro
+    depends_on:
+      web:
+        condition: service_started
+      api:
+        condition: service_healthy
+    networks: [frontend]
+
+secrets:
+  postgres_password:
+    file: ./secrets/postgres_password.txt
+  database_url:
+    file: ./secrets/database_url.txt
+
+volumes:
+  postgres_data:
+
+networks:
+  frontend:
+  backend:
+    internal: true

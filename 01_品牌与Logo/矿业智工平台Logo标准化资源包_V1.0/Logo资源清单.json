@@ -1,0 +1,37 @@
+{
+  "project": "矿业智工平台",
+  "english_name": "MineWorks Platform",
+  "version": "V1.0",
+  "status": "provisional_raster_brand_master",
+  "date": "2026-07-13",
+  "important_note": "当前为栅格基准资源。正式商标申请和大型印刷前必须完成矢量重绘。",
+  "brand_colors": {
+    "mining_teal": "#0D6A77",
+    "process_cyan": "#109CC9",
+    "engineering_slate": "#405262",
+    "copper_accent": "#D69772",
+    "dark_background": "#0B2233",
+    "white_background": "#FFFFFF"
+  },
+  "files": [
+    "00_原始选定方案_参考图.png",
+    "01_主标志_全彩_透明底.png",
+    "02_主标志_全彩_白底.png",
+    "03_主标志_单色深蓝_透明底.png",
+    "04_主标志_单色深蓝_白底.png",
+    "05_主标志_单色白_透明底.png",
+    "06_主标志_单色白_深色底.png",
+    "07_图形标志_工程制图版_透明底.png",
+    "08_中英文标准字_透明底.png",
+    "09_横向组合标志_透明底.png",
+    "10_横向组合标志_白底.png",
+    "11_临时应用图标_512.png",
+    "12_临时应用图标_128.png",
+    "12_临时应用图标_16.png",
+    "12_临时应用图标_256.png",
+    "12_临时应用图标_32.png",
+    "12_临时应用图标_48.png",
+    "12_临时应用图标_64.png",
+    "favicon.ico"
+  ]
+}

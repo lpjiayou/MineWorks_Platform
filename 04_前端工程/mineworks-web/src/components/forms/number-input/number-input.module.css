@@ -1,0 +1,5 @@
+.input { width: 100%; min-height: var(--mw-field-height); padding: 0 12px; border: 1px solid var(--mw-border); border-radius: var(--mw-radius-md); color: var(--mw-text-primary); background: var(--mw-surface-soft); }
+.input:hover { border-color: var(--mw-border-strong); }
+.input:disabled { opacity: .55; cursor: not-allowed; }
+.warning { border-color: var(--mw-warning); }
+.error { border-color: var(--mw-danger); box-shadow: 0 0 0 3px color-mix(in srgb, var(--mw-danger) 10%, transparent); }

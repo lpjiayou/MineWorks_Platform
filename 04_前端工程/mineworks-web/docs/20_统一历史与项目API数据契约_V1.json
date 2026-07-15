@@ -1,0 +1,56 @@
+{
+  "version": "1.0.0",
+  "base_url": "http://127.0.0.1:8000/api/v1",
+  "projects": {
+    "create": "POST /projects",
+    "list": "GET /projects",
+    "get": "GET /projects/{project_id}"
+  },
+  "calculation_records": {
+    "create": "POST /calculation-records",
+    "list": "GET /calculation-records?tool_id=&project_id=&q=&limit=",
+    "get": "GET /calculation-records/{record_id}",
+    "update": "PATCH /calculation-records/{record_id}",
+    "delete": "DELETE /calculation-records/{record_id}",
+    "reuse": "GET /calculation-records/{record_id}/reuse?target_tool_id="
+  },
+  "project_create_example": {
+    "name": "某金矿选矿扩建项目",
+    "code": "MW-2026-001",
+    "description": "用于统一保存选矿计算和复核记录"
+  },
+  "record_required_fields": [
+    "source_request_id",
+    "tool_id",
+    "tool_name",
+    "tool_version",
+    "formula_version",
+    "title",
+    "validity",
+    "computed_at",
+    "inputs",
+    "normalized_inputs",
+    "results"
+  ],
+  "reusable_output_example": {
+    "key": "slurry_density",
+    "label": "矿浆密度",
+    "value": 1.3595,
+    "unit": "t/m3",
+    "quantity": "density",
+    "mappings": [
+      {
+        "target_tool_id": "dry-solids-rate",
+        "target_field": "slurryDensity",
+        "target_unit": "t/m3"
+      }
+    ]
+  },
+  "rules": [
+    "0 is a valid value",
+    "missing fields are never replaced with zero",
+    "field mappings must be explicitly declared",
+    "target tools must validate and recalculate reused data",
+    "frontend permission display never replaces backend authorization"
+  ]
+}

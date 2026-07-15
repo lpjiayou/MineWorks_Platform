@@ -1,0 +1,18 @@
+.root { min-width: 0; margin: 0; padding: 0; border: 0; }
+.root > legend { padding: 0; font-size: 13px; font-weight: 800; }
+.description { margin: 5px 0 12px; color: var(--mw-text-muted); font-size: 10px; line-height: 1.55; }
+.summary { margin: 8px 2px; color: var(--mw-text-muted); font-size: 9px; }
+.list { display: grid; gap: 9px; margin-bottom: 12px; max-height: 340px; overflow: auto; }
+.option { display: grid; grid-template-columns: auto auto minmax(0, 1fr); gap: 10px; align-items: center; min-height: 72px; padding: 11px; border: 1px solid var(--mw-border); border-radius: var(--mw-radius-md); background: var(--mw-surface-soft); cursor: pointer; transition: border-color var(--mw-duration-normal), background var(--mw-duration-normal); }
+.option:hover { border-color: var(--mw-brand-primary); }
+.option input { position: absolute; opacity: 0; pointer-events: none; }
+.selected { border-color: var(--mw-brand-primary); background: var(--mw-brand-soft); box-shadow: 0 0 0 2px color-mix(in srgb, var(--mw-brand-primary) 12%, transparent); }
+.disabled { opacity: .55; cursor: not-allowed; }
+.radio { width: 18px; height: 18px; border: 1.5px solid var(--mw-border-strong); border-radius: 50%; background: var(--mw-surface); box-shadow: inset 0 0 0 4px var(--mw-surface); }
+.selected .radio { border-color: var(--mw-brand-primary); background: var(--mw-brand-primary); }
+.projectIcon { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 11px; color: var(--mw-brand-primary); background: var(--mw-surface); border: 1px solid var(--mw-border); font-weight: 900; }
+.content { display: grid; gap: 4px; min-width: 0; }
+.titleRow { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.titleRow strong { font-size: 11px; }
+.content small { color: var(--mw-text-muted); font-size: 9px; line-height: 1.45; }
+.empty { min-height: 100px; display: grid; place-items: center; align-content: center; gap: 7px; color: var(--mw-text-muted); border: 1px dashed var(--mw-border-strong); border-radius: var(--mw-radius-md); font-size: 10px; }

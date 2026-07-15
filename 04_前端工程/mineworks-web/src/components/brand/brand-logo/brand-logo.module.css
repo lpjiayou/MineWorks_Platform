@@ -1,0 +1,5 @@
+.wrap { display: inline-flex; align-items: center; line-height: 0; }
+.wrap img { width: auto; height: 48px; object-fit: contain; }
+.dark { display: none; }
+:global([data-theme="dark"]) .light { display: none; }
+:global([data-theme="dark"]) .dark { display: block; }

@@ -1,0 +1,22 @@
+.root { border: 1px solid var(--mw-border); border-radius: var(--mw-radius-lg); background: var(--mw-surface); overflow: hidden; }
+.header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 15px 16px; border-bottom: 1px solid var(--mw-border); }
+.header h3 { margin: 0; font-size: 14px; }
+.header p { margin: 4px 0 0; color: var(--mw-text-muted); font-size: 10px; }
+.header > span { color: var(--mw-text-muted); font-size: 10px; }
+.list { list-style: none; display: grid; gap: 10px; margin: 0; padding: 14px; }
+.step { border: 1px solid var(--mw-border); border-radius: var(--mw-radius-md); background: var(--mw-surface-soft); overflow: hidden; }
+.warning { border-color: color-mix(in srgb, var(--mw-warning) 40%, var(--mw-border)); }
+.error { border-color: color-mix(in srgb, var(--mw-danger) 40%, var(--mw-border)); }
+.info { border-color: color-mix(in srgb, var(--mw-info) 35%, var(--mw-border)); }
+.trigger { width: 100%; padding: 12px; border: 0; display: grid; grid-template-columns: auto minmax(0, 1fr) auto auto; align-items: center; gap: 10px; color: var(--mw-text-primary); background: transparent; text-align: left; }
+.index { width: 28px; height: 28px; display: grid; place-items: center; border-radius: 9px; color: var(--mw-brand-dark); background: var(--mw-brand-soft); font-size: 11px; font-weight: 900; }
+.stepHeading { display: grid; gap: 3px; min-width: 0; }
+.stepHeading strong { font-size: 12px; }
+.stepHeading small { color: var(--mw-text-muted); font-size: 10px; line-height: 1.45; }
+.chevron { color: var(--mw-text-muted); transition: transform var(--mw-duration-normal); }
+.chevron.open { transform: rotate(180deg); }
+.content { display: grid; gap: 10px; padding: 0 12px 12px 50px; }
+.result { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 11px 12px; border: 1px solid var(--mw-border); border-radius: var(--mw-radius-md); background: var(--mw-surface); }
+.result > span { color: var(--mw-text-secondary); font-size: 11px; }
+.note { margin: 0; color: var(--mw-text-secondary); font-size: 10px; line-height: 1.65; }
+@media (max-width: 560px) { .trigger { grid-template-columns: auto minmax(0, 1fr) auto; } .trigger > :global(.badge) { display: none; } .content { padding-left: 12px; } }

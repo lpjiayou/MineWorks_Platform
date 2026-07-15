@@ -1,0 +1,5 @@
+.panel { overflow: hidden; border: 1px solid var(--mw-border); border-radius: var(--mw-radius-xl); background: var(--mw-surface); box-shadow: var(--mw-shadow-xs); }
+.header { min-height: 60px; padding: 14px var(--mw-space-5); display: flex; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--mw-border); }
+.header h2 { margin: 0; font-size: 17px; }
+.header p { margin: 4px 0 0; color: var(--mw-text-muted); font-size: 11px; }
+.body { padding: var(--mw-space-5); }

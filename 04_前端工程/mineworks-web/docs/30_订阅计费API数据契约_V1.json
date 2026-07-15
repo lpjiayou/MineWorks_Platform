@@ -1,0 +1,62 @@
+{
+  "version": "1.0.0",
+  "base_url": "/api/v1",
+  "endpoints": [
+    {
+      "method": "GET",
+      "path": "/plans",
+      "authentication": false,
+      "description": "读取免费、专业、团队和企业套餐目录"
+    },
+    {
+      "method": "GET",
+      "path": "/billing/entitlements",
+      "authentication": true,
+      "description": "读取当前用户和活动团队的有效套餐、功能权益与配额"
+    },
+    {
+      "method": "GET",
+      "path": "/billing/orders",
+      "authentication": true,
+      "description": "读取当前用户和活动团队可访问的订单"
+    },
+    {
+      "method": "GET",
+      "path": "/billing/subscriptions",
+      "authentication": true,
+      "description": "读取个人和活动团队订阅"
+    },
+    {
+      "method": "POST",
+      "path": "/billing/checkout-intents",
+      "authentication": true,
+      "request": {
+        "subject_type": "user | team",
+        "target_plan": "professional | team | enterprise",
+        "billing_cycle": "monthly | annual"
+      },
+      "description": "创建本地演示订单"
+    },
+    {
+      "method": "POST",
+      "path": "/billing/orders/{order_id}/simulate-paid",
+      "authentication": true,
+      "description": "仅开发环境模拟支付成功并激活订阅"
+    }
+  ],
+  "errors": [
+    { "status": 401, "code": "AUTH_REQUIRED" },
+    { "status": 403, "code": "BILLING_PERMISSION_DENIED" },
+    { "status": 403, "code": "FEATURE_NOT_ENTITLED" },
+    { "status": 404, "code": "ORDER_NOT_FOUND" },
+    { "status": 409, "code": "ORDER_STATE_INVALID" },
+    { "status": 422, "code": "BILLING_INPUT_INVALID" },
+    { "status": 429, "code": "QUOTA_EXCEEDED" }
+  ],
+  "security_notes": [
+    "个人订单仅本人可操作",
+    "团队订单仅团队所有者或管理员可操作",
+    "企业版不能直接模拟开通",
+    "正式支付必须使用服务端回调验签和幂等处理"
+  ]
+}

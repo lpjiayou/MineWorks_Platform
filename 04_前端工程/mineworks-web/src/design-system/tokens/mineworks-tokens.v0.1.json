@@ -1,0 +1,670 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "meta": {
+    "project": "矿业智工平台",
+    "englishName": "MineWorks Platform",
+    "designSystem": "MineWorks UI",
+    "version": "0.1.0",
+    "documentVersion": "V0.1",
+    "status": "design-baseline",
+    "generatedAt": "2026-07-14",
+    "description": "矿业智工平台网页设计系统基础令牌。用于Next.js、React、Storybook、图表、工程工具和工作台界面。",
+    "sourceDocuments": [
+      "矿业智工平台网页信息架构与UI设计系统规范.md",
+      "矿业智工平台工具中心与基础工具详情页设计规范.md",
+      "矿业智工平台UI基础组件库V0.1规范.md",
+      "矿业智工平台工具页面状态设计说明.md"
+    ],
+    "namingConvention": "mw-{category}-{role}-{state}",
+    "cssVariablePrefix": "--mw-"
+  },
+  "primitive": {
+    "color": {
+      "teal": {
+        "50": "#EDF9FA",
+        "100": "#DFF2F4",
+        "200": "#BCE5E9",
+        "300": "#88D2D9",
+        "400": "#4DB8C2",
+        "500": "#148E9D",
+        "600": "#0F7B88",
+        "700": "#0F6470",
+        "800": "#124F59",
+        "900": "#123F47"
+      },
+      "blue": {
+        "50": "#EDF6FA",
+        "100": "#E5F0F6",
+        "200": "#C8E0ED",
+        "300": "#9BC9DF",
+        "400": "#66AED0",
+        "500": "#397EA5",
+        "600": "#2F6F94",
+        "700": "#2F5D78",
+        "800": "#2E4D62",
+        "900": "#2A414F"
+      },
+      "copper": {
+        "50": "#FBF5EC",
+        "100": "#F4EADC",
+        "200": "#E9D1AD",
+        "300": "#DAB77C",
+        "400": "#CC9850",
+        "500": "#B8792D",
+        "600": "#9E6225",
+        "700": "#7F4C22",
+        "800": "#673D21",
+        "900": "#55331E"
+      },
+      "green": {
+        "50": "#EDF9F3",
+        "100": "#E4F5EC",
+        "200": "#C6EBD8",
+        "300": "#91D9B4",
+        "400": "#5EC391",
+        "500": "#2F9F6F",
+        "600": "#21845B",
+        "700": "#1D694A",
+        "800": "#1B533D",
+        "900": "#174433"
+      },
+      "orange": {
+        "50": "#FFF9EF",
+        "100": "#FFF3DF",
+        "200": "#FFE2AD",
+        "300": "#F7C970",
+        "400": "#EBA846",
+        "500": "#D88A2B",
+        "600": "#BB6D20",
+        "700": "#96521D",
+        "800": "#793F1E",
+        "900": "#64351D"
+      },
+      "red": {
+        "50": "#FFF4F4",
+        "100": "#FDE8E9",
+        "200": "#F9CACB",
+        "300": "#F19A9C",
+        "400": "#E87577",
+        "500": "#D94F51",
+        "600": "#BD393B",
+        "700": "#9D3032",
+        "800": "#822C2E",
+        "900": "#6D2A2B"
+      },
+      "violet": {
+        "50": "#F7F4FD",
+        "100": "#EEE9FB",
+        "200": "#DDD1F6",
+        "300": "#C6ACEF",
+        "400": "#A985E1",
+        "500": "#7154B6",
+        "600": "#63469F",
+        "700": "#523B82",
+        "800": "#44336A",
+        "900": "#392C57"
+      },
+      "slate": {
+        "0": "#FFFFFF",
+        "25": "#FBFDFE",
+        "50": "#F8FBFC",
+        "75": "#F3F7F9",
+        "100": "#EEF5F7",
+        "150": "#EAF2F5",
+        "200": "#CFDEE4",
+        "300": "#A9C2CB",
+        "400": "#738891",
+        "500": "#5A707A",
+        "600": "#425D68",
+        "700": "#304852",
+        "800": "#1D343E",
+        "900": "#10252E",
+        "950": "#08131B"
+      }
+    },
+    "space": {
+      "0": "0px",
+      "1": "4px",
+      "2": "8px",
+      "3": "12px",
+      "4": "16px",
+      "5": "20px",
+      "6": "24px",
+      "7": "28px",
+      "8": "32px",
+      "10": "40px",
+      "12": "48px",
+      "14": "56px",
+      "16": "64px",
+      "20": "80px",
+      "24": "96px"
+    },
+    "radius": {
+      "none": "0px",
+      "xs": "6px",
+      "sm": "10px",
+      "md": "12px",
+      "lg": "16px",
+      "xl": "20px",
+      "2xl": "24px",
+      "3xl": "32px",
+      "round": "999px"
+    },
+    "fontSize": {
+      "xs": "11px",
+      "sm": "12px",
+      "md": "14px",
+      "lg": "16px",
+      "xl": "18px",
+      "2xl": "22px",
+      "3xl": "28px",
+      "4xl": "34px",
+      "5xl": "42px",
+      "result": "30px"
+    },
+    "fontWeight": {
+      "regular": 400,
+      "medium": 500,
+      "semibold": 600,
+      "bold": 700,
+      "extrabold": 800,
+      "black": 900
+    },
+    "lineHeight": {
+      "tight": 1.35,
+      "normal": 1.6,
+      "relaxed": 1.75,
+      "reading": 1.85
+    },
+    "shadow": {
+      "none": "none",
+      "xs": "0 4px 12px rgba(35, 73, 89, 0.06)",
+      "sm": "0 8px 24px rgba(35, 73, 89, 0.08)",
+      "md": "0 18px 44px rgba(35, 73, 89, 0.12)",
+      "lg": "0 28px 80px rgba(24, 60, 76, 0.16)"
+    },
+    "duration": {
+      "instant": "0ms",
+      "fast": "120ms",
+      "normal": "180ms",
+      "overlay": "220ms",
+      "complex": "260ms"
+    },
+    "easing": {
+      "enter": "cubic-bezier(0.16, 1, 0.3, 1)",
+      "exit": "cubic-bezier(0.4, 0, 1, 1)",
+      "standard": "cubic-bezier(0.4, 0, 0.2, 1)"
+    },
+    "breakpoint": {
+      "sm": "560px",
+      "md": "720px",
+      "lg": "980px",
+      "xl": "1280px",
+      "2xl": "1536px"
+    },
+    "zIndex": {
+      "base": 0,
+      "sticky": 30,
+      "header": 100,
+      "popover": 200,
+      "modal": 300,
+      "toast": 400,
+      "blocking": 500
+    }
+  },
+  "semantic": {
+    "light": {
+      "background": {
+        "page": "{primitive.color.slate.75}",
+        "soft": "{primitive.color.slate.150}",
+        "surface": "{primitive.color.slate.0}",
+        "surfaceSoft": "{primitive.color.slate.50}",
+        "surfaceStrong": "{primitive.color.slate.100}",
+        "overlay": "rgba(4, 14, 20, 0.50)"
+      },
+      "border": {
+        "default": "{primitive.color.slate.200}",
+        "strong": "{primitive.color.slate.300}",
+        "focus": "{primitive.color.teal.500}",
+        "error": "{primitive.color.red.500}",
+        "warning": "{primitive.color.orange.500}",
+        "success": "{primitive.color.green.500}"
+      },
+      "text": {
+        "primary": "{primitive.color.slate.900}",
+        "secondary": "{primitive.color.slate.600}",
+        "muted": "{primitive.color.slate.400}",
+        "inverse": "{primitive.color.slate.0}",
+        "link": "{primitive.color.teal.600}",
+        "danger": "{primitive.color.red.500}",
+        "warning": "{primitive.color.orange.500}",
+        "success": "{primitive.color.green.500}"
+      },
+      "brand": {
+        "primary": "{primitive.color.teal.500}",
+        "secondary": "{primitive.color.blue.500}",
+        "dark": "{primitive.color.teal.700}",
+        "soft": "{primitive.color.teal.100}",
+        "copper": "{primitive.color.copper.500}",
+        "copperSoft": "{primitive.color.copper.100}"
+      },
+      "status": {
+        "info": "{primitive.color.blue.500}",
+        "infoSoft": "{primitive.color.blue.100}",
+        "success": "{primitive.color.green.500}",
+        "successSoft": "{primitive.color.green.100}",
+        "warning": "{primitive.color.orange.500}",
+        "warningSoft": "{primitive.color.orange.100}",
+        "danger": "{primitive.color.red.500}",
+        "dangerSoft": "{primitive.color.red.100}",
+        "team": "{primitive.color.violet.500}",
+        "teamSoft": "{primitive.color.violet.100}",
+        "neutral": "{primitive.color.slate.400}",
+        "neutralSoft": "{primitive.color.slate.100}"
+      }
+    },
+    "dark": {
+      "background": {
+        "page": "#08131B",
+        "soft": "#0C1821",
+        "surface": "#0F1E28",
+        "surfaceSoft": "#132630",
+        "surfaceStrong": "#18313D",
+        "overlay": "rgba(0, 0, 0, 0.62)"
+      },
+      "border": {
+        "default": "#294653",
+        "strong": "#3C6270",
+        "focus": "#27C2CF",
+        "error": "#EF696B",
+        "warning": "#F0AA4A",
+        "success": "#43CA8D"
+      },
+      "text": {
+        "primary": "#EAF5F7",
+        "secondary": "#ADC1C9",
+        "muted": "#7C949F",
+        "inverse": "#08131B",
+        "link": "#27C2CF",
+        "danger": "#EF696B",
+        "warning": "#F0AA4A",
+        "success": "#43CA8D"
+      },
+      "brand": {
+        "primary": "#27C2CF",
+        "secondary": "#5AAADE",
+        "dark": "#1898A5",
+        "soft": "rgba(39, 194, 207, 0.13)",
+        "copper": "#D09A56",
+        "copperSoft": "rgba(208, 154, 86, 0.14)"
+      },
+      "status": {
+        "info": "#66B5DF",
+        "infoSoft": "rgba(102, 181, 223, 0.13)",
+        "success": "#43CA8D",
+        "successSoft": "rgba(67, 202, 141, 0.13)",
+        "warning": "#F0AA4A",
+        "warningSoft": "rgba(240, 170, 74, 0.13)",
+        "danger": "#EF696B",
+        "dangerSoft": "rgba(239, 105, 107, 0.13)",
+        "team": "#A78AE8",
+        "teamSoft": "rgba(167, 138, 232, 0.13)",
+        "neutral": "#7C949F",
+        "neutralSoft": "#18313D"
+      }
+    }
+  },
+  "typography": {
+    "family": {
+      "sansZh": [
+        "Microsoft YaHei",
+        "PingFang SC",
+        "Noto Sans CJK SC",
+        "system-ui",
+        "sans-serif"
+      ],
+      "sansEn": [
+        "Inter",
+        "system-ui",
+        "sans-serif"
+      ],
+      "mono": [
+        "Consolas",
+        "JetBrains Mono",
+        "Courier New",
+        "monospace"
+      ]
+    },
+    "style": {
+      "pageTitle": {
+        "fontSize": "{primitive.fontSize.4xl}",
+        "fontWeight": 800,
+        "lineHeight": 1.35
+      },
+      "sectionTitle": {
+        "fontSize": "{primitive.fontSize.2xl}",
+        "fontWeight": 700,
+        "lineHeight": 1.35
+      },
+      "panelTitle": {
+        "fontSize": "{primitive.fontSize.lg}",
+        "fontWeight": 700,
+        "lineHeight": 1.35
+      },
+      "cardTitle": {
+        "fontSize": "{primitive.fontSize.xl}",
+        "fontWeight": 700,
+        "lineHeight": 1.35
+      },
+      "body": {
+        "fontSize": "{primitive.fontSize.md}",
+        "fontWeight": 400,
+        "lineHeight": 1.6
+      },
+      "bodySmall": {
+        "fontSize": "{primitive.fontSize.sm}",
+        "fontWeight": 400,
+        "lineHeight": 1.75
+      },
+      "caption": {
+        "fontSize": "{primitive.fontSize.xs}",
+        "fontWeight": 500,
+        "lineHeight": 1.6
+      },
+      "result": {
+        "fontSize": "{primitive.fontSize.result}",
+        "fontWeight": 900,
+        "lineHeight": 1.2
+      },
+      "formula": {
+        "fontFamily": "{typography.family.mono}",
+        "fontSize": "{primitive.fontSize.sm}",
+        "fontWeight": 400,
+        "lineHeight": 1.75
+      }
+    }
+  },
+  "layout": {
+    "container": {
+      "publicMaxWidth": "1600px",
+      "toolMaxWidth": "1540px",
+      "readingMaxWidth": "980px",
+      "pageHorizontalPaddingDesktop": "24px",
+      "pageHorizontalPaddingMobile": "14px"
+    },
+    "header": {
+      "publicHeight": "72px",
+      "mobileHeight": "64px",
+      "workspaceHeight": "60px"
+    },
+    "sidebar": {
+      "defaultWidth": "252px",
+      "compactWidth": "220px",
+      "collapsedWidth": "64px"
+    },
+    "touchTarget": {
+      "minimum": "44px"
+    }
+  },
+  "component": {
+    "button": {
+      "height": {
+        "sm": "34px",
+        "md": "42px",
+        "lg": "48px"
+      },
+      "radius": "{primitive.radius.md}",
+      "fontWeight": 700,
+      "paddingX": {
+        "sm": "12px",
+        "md": "16px",
+        "lg": "20px"
+      },
+      "transition": "{primitive.duration.normal}"
+    },
+    "input": {
+      "height": {
+        "comfortable": "44px",
+        "compact": "36px"
+      },
+      "radius": "{primitive.radius.md}",
+      "paddingX": "12px",
+      "focusRingWidth": "3px",
+      "focusRingAlpha": 0.2
+    },
+    "card": {
+      "radius": "{primitive.radius.lg}",
+      "padding": {
+        "comfortable": "20px",
+        "compact": "16px"
+      },
+      "borderWidth": "1px",
+      "shadow": "{primitive.shadow.xs}"
+    },
+    "panel": {
+      "radius": "{primitive.radius.xl}",
+      "headerHeight": {
+        "min": "56px",
+        "max": "64px"
+      },
+      "padding": {
+        "comfortable": "20px",
+        "compact": "16px"
+      }
+    },
+    "badge": {
+      "height": "24px",
+      "radius": "{primitive.radius.round}",
+      "paddingX": "8px",
+      "fontSize": "{primitive.fontSize.xs}",
+      "fontWeight": 800
+    },
+    "modal": {
+      "maxWidth": "560px",
+      "radius": "{primitive.radius.xl}",
+      "zIndex": "{primitive.zIndex.modal}"
+    },
+    "drawer": {
+      "desktopWidth": "420px",
+      "mobileWidth": "88vw",
+      "zIndex": "{primitive.zIndex.modal}"
+    },
+    "toast": {
+      "maxWidth": "380px",
+      "durationMs": 2400,
+      "zIndex": "{primitive.zIndex.toast}"
+    },
+    "table": {
+      "rowHeightComfortable": "44px",
+      "rowHeightCompact": "36px",
+      "headerHeight": "44px",
+      "numericAlign": "right",
+      "statusAlign": "center"
+    }
+  },
+  "engineering": {
+    "nullDisplay": "—",
+    "nanDisplay": "计算错误",
+    "staleDisplay": "数据已过期",
+    "zeroIsValid": true,
+    "numberFormat": {
+      "flow": {
+        "precision": 2,
+        "useGrouping": true
+      },
+      "density": {
+        "precision": 3,
+        "useGrouping": false
+      },
+      "concentration": {
+        "precision": 2,
+        "useGrouping": false
+      },
+      "grade": {
+        "precisionMin": 2,
+        "precisionMax": 4,
+        "useGrouping": false
+      },
+      "percentage": {
+        "precision": 2,
+        "useGrouping": false
+      },
+      "power": {
+        "precision": 2,
+        "useGrouping": true
+      },
+      "metalRate": {
+        "precision": 3,
+        "useGrouping": true
+      }
+    },
+    "validity": {
+      "NOT_CALCULATED": {
+        "labelZh": "尚未计算",
+        "tone": "neutral"
+      },
+      "VALID": {
+        "labelZh": "数据有效",
+        "tone": "success"
+      },
+      "CAUTION": {
+        "labelZh": "结果需复核",
+        "tone": "warning"
+      },
+      "INCONSISTENT": {
+        "labelZh": "数据不一致",
+        "tone": "danger"
+      },
+      "INVALID": {
+        "labelZh": "数据无效",
+        "tone": "danger"
+      },
+      "STALE": {
+        "labelZh": "数据已过期",
+        "tone": "warning"
+      },
+      "MISSING": {
+        "labelZh": "数据缺失",
+        "tone": "neutral"
+      }
+    },
+    "toolStatus": {
+      "DRAFT": {
+        "labelZh": "草稿",
+        "tone": "neutral"
+      },
+      "REVIEWING": {
+        "labelZh": "技术审核中",
+        "tone": "warning"
+      },
+      "VALIDATED": {
+        "labelZh": "已验证",
+        "tone": "success"
+      },
+      "TEACHING": {
+        "labelZh": "教学示例",
+        "tone": "info"
+      },
+      "DEPRECATED": {
+        "labelZh": "即将停用",
+        "tone": "warning"
+      },
+      "DISABLED": {
+        "labelZh": "已停用",
+        "tone": "neutral"
+      }
+    },
+    "equipmentStatus": {
+      "STOPPED": {
+        "labelZh": "停止",
+        "tone": "neutral"
+      },
+      "STARTING": {
+        "labelZh": "启动中",
+        "tone": "info"
+      },
+      "RUNNING": {
+        "labelZh": "运行",
+        "tone": "success"
+      },
+      "STOPPING": {
+        "labelZh": "停止中",
+        "tone": "info"
+      },
+      "FAULT": {
+        "labelZh": "故障",
+        "tone": "danger"
+      },
+      "INTERLOCKED": {
+        "labelZh": "联锁",
+        "tone": "warning"
+      },
+      "MAINTENANCE": {
+        "labelZh": "检修",
+        "tone": "warning"
+      },
+      "OFFLINE": {
+        "labelZh": "离线",
+        "tone": "neutral"
+      }
+    },
+    "alarmSeverity": {
+      "INFO": {
+        "labelZh": "提示",
+        "tone": "info"
+      },
+      "WARNING": {
+        "labelZh": "警告",
+        "tone": "warning"
+      },
+      "HIGH": {
+        "labelZh": "高报警",
+        "tone": "danger"
+      },
+      "HIGH_HIGH": {
+        "labelZh": "高高报警",
+        "tone": "danger"
+      },
+      "CRITICAL": {
+        "labelZh": "严重报警",
+        "tone": "danger"
+      }
+    }
+  },
+  "chart": {
+    "seriesPaletteLight": [
+      "#148E9D",
+      "#397EA5",
+      "#B8792D",
+      "#2F9F6F",
+      "#7154B6",
+      "#738891"
+    ],
+    "seriesPaletteDark": [
+      "#27C2CF",
+      "#66B5DF",
+      "#D09A56",
+      "#43CA8D",
+      "#A78AE8",
+      "#7C949F"
+    ],
+    "gridLight": "#DCE7EB",
+    "gridDark": "#294653",
+    "axisLight": "#738891",
+    "axisDark": "#ADC1C9",
+    "targetLine": "#B8792D",
+    "warningLine": "#D88A2B",
+    "dangerLine": "#D94F51",
+    "maxPrimarySeries": 6
+  },
+  "accessibility": {
+    "minimumContrastNormalText": 4.5,
+    "minimumContrastLargeText": 3.0,
+    "minimumTouchTarget": "44px",
+    "focusRingRequired": true,
+    "statusMustIncludeText": true,
+    "reducedMotionRequired": true,
+    "keyboardNavigationRequired": true,
+    "ariaLiveForAsyncStatus": true
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "project": "矿业智工平台",
+  "english_name": "MineWorks Platform",
+  "version": "V1.1 First Pass",
+  "date": "2026-07-13",
+  "source": "logo-approved-reference.png",
+  "artboard": "1254 x 1254 viewBox",
+  "embedded_raster": false,
+  "layers": [
+    "01_SYMBOL",
+    "02_ENGINEERING_GUIDES",
+    "03_WORDMARK_CN",
+    "04_WORDMARK_EN"
+  ],
+  "status": "first-pass-vector-master",
+  "not_final_for": [
+    "商标注册",
+    "大型印刷",
+    "门头",
+    "最终favicon"
+  ]
+}
